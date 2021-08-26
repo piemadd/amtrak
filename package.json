@@ -1,0 +1,27 @@
+{
+  "name": "amtrak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bent": "^7.3.12",
+    "crypto-js": "^4.1.1",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2",
+    "utf8": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pieromqwerty/amtrak.git"
+  },
+  "author": "Piero Maddaleni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pieromqwerty/amtrak/issues"
+  },
+  "homepage": "https://github.com/pieromqwerty/amtrak#readme"
+}
