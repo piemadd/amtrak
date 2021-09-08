@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const crypto = require("crypto-js");
-const moment = require("moment-timezone");
+const fs = require("fs");
+const cleaning_1 = require("./cleaning");
 const dataUrl = 'https://maps.amtrak.com/services/MapDataService/trains/getTrainsData';
 const sValue = '9a3686ac';
 const iValue = 'c6eb2f7f5c4740c1a2f708fefd947d39';
@@ -35,61 +36,13 @@ const fetchTrainData = async (i = 0) => {
         return await fetchTrainData();
     }
 };
-Date.prototype.stdTimezoneOffset = function () {
-    var jan = new Date(this.getFullYear(), 0, 1);
-    var jul = new Date(this.getFullYear(), 6, 1);
-    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-};
-Date.prototype.isDstObserved = function () {
-    return this.getTimezoneOffset() < this.stdTimezoneOffset();
-};
-const cleanTrainData = async((originalData) => {
-    let resultingData;
-    originalData.forEach((originalTrain) => {
-        let lastArr;
-        let today = new Date();
-        let middleTimeLetter;
-        if (today.isDstObserved()) {
-            middleTimeLetter = "D";
-        }
-        else {
-            middleTimeLetter = "S";
-        }
-        if (originalTrain.TrainState == "Completed") {
-            let lastArr = new Date(`${originalTrain.updated_at} ${await moment().tz(tzlookup(originalTrain.coordinates[1], originalTrain.coordinates[0])).zoneAbbr()}`);
-        }
-        else {
-            let lastArr;
-        }
-        let resultingTrain = {
-            routeName: originalTrain.RouteName,
-            trainNum: originalTrain.TrainNum,
-            coordinates: [originalTrain.coordinates[1], originalTrain.coordinates[0]],
-            lat: originalTrain.coordinates[1],
-            lon: originalTrain.coordinates[0],
-            heading: originalTrain.Heading,
-            velocity: originalTrain.Velocity,
-            lastValTS: new Date(`${originalTrain.LastValTS} ${await moment().tz(tzlookup(originalTrain.coordinates[1], originalTrain.coordinates[0])).zoneAbbr()}`),
-            lastArr: lastArr,
-            trainState: originalTrain.TrainState,
-            statusMsg: originalTrain.StatusMsg,
-            serviceDisruption: (originalTrain.statusMsg == "SERVICE DISRUPTION"),
-            eventCode: originalTrain.EventCode,
-            destCode: originalTrain.DestCode,
-            origCode: originalTrain.OrigCode,
-            originTZ: `${original.OriginTZ}${middleTimeLetter}T`,
-            origSchDep: new Date(`${originalData.OrigSchDep} ${original.OriginTZ}${middleTimeLetter}T`),
-            aliases: originalTrain.Aliases.split(','),
-            updatedAt: new Date(`${originalData.updated_at} E${middleTimeLetter}T`),
-            stations: updatedStations
-        };
-    });
-});
-;
 const decrypt = (content, key) => {
     return crypto.AES.decrypt(crypto.lib.CipherParams.create({ ciphertext: crypto.enc.Base64.parse(content) }), crypto.PBKDF2(key, crypto.enc.Hex.parse(sValue), { keySize: 4, iterations: 1e3 }), { iv: crypto.enc.Hex.parse(iValue) }).toString(crypto.enc.Utf8);
 };
 fetchTrainData().then((trainData) => {
-    console.dir(trainData, { depth: null });
+    let cleanedData = (0, cleaning_1.cleanTrainData)(trainData);
+    let dataToWrite = JSON.stringify(cleanedData);
+    fs.writeFileSync('output.json', dataToWrite);
+    console.dir(cleanedData, { depth: null });
 });
 //# sourceMappingURL=index.js.map

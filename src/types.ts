@@ -1,3 +1,5 @@
+//WHY IS EVERYTHING A STRING
+//ISO 8601 MY ASS
 export interface stationRaw {
 	code: string;
 	tz: string;
@@ -27,11 +29,11 @@ export interface station {
 	autoDep: boolean; //has the train departed from this station already?
 	postArr?: Date; //actual arrival at station
 	postDep?: Date; //actual departure from station
-	postCmnt?: string; 
-	estarr?: Date;
-	estdep?: Date;
-	estarrcmnt?: string;
-	estdepcmnt?: string;
+	postCmnt?: string; //how late it departed in english
+	estArr?: Date; //estimated arrival at station
+	estDep?: Date; //estimated departure from station
+	estArrCmnt?: string; //how early/late train will be in english
+	estDepCmnt?: string; //how early/late train will be in english
 }
 
 export interface trainDataRaw { //DONT USE THIS FOR GOD'S SAKE
@@ -40,16 +42,16 @@ export interface trainDataRaw { //DONT USE THIS FOR GOD'S SAKE
 	lon: number;
 	lat: number;
 	gx_id: number;
-	ViewStn1: string;
-	ViewStn2: string;
+	ViewStn1: string; //always eastern
+	ViewStn2: string; //train tz
 	StatusMsg: string;
-	EventSchDp: null;
-	EventSchAr: null;
+	EventSchDp: string;
+	EventSchAr: string;
 	Heading: string;
 	LastValTS: string; //position tz
-	EventTZ: null;
-	EventT: null;
-	EventDT: null;
+	EventTZ: string;
+	EventT: string;
+	EventDT: string;
 	EventCode: string;
 	DestCode: string;
 	OrigCode: string;
