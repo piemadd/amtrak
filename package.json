@@ -1,22 +1,21 @@
 {
 	"name": "amtrak",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "A simple and easy way to parse data from Amtrak's train tracking API.",
 	"main": "index.ts",
 	"scripts": {
-		"start": "npx tsc -p ./src && node ./dist/index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "npx tsc -p ./src && node ./dist/amtrak/amtrak.js",
+		"test": "npx tsc -p ./src && bash ./testing/runTests.sh"
 	},
 	"author": "Piero Maddaleni",
 	"license": "ISC",
 	"dependencies": {
 		"@types/crypto-js": "^4.0.2",
 		"@types/node": "^16.7.13",
+		"amtrak": "github:pieromqwerty/amtrak",
 		"axios": "^0.21.3",
 		"crypto-js": "^4.1.1",
-		"moment-timezone": "^0.5.33",
-		"typescript": "^4.4.2",
-		"tz-lookup": "^6.1.25"
+		"typescript": "^4.4.2"
 	},
 	"devDependencies": {
 		"@types/tz-lookup": "^6.1.0"
