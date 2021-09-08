@@ -2,7 +2,9 @@
 	"name": "amtrak",
 	"version": "0.2.0",
 	"description": "A simple and easy way to parse data from Amtrak's train tracking API.",
-	"main": "index.ts",
+	"main": "dist/amtrak/amtrak.js",
+	"types": "dist/amtrak/amtrak.d.ts",
+
 	"scripts": {
 		"start": "npx tsc -p ./src && node ./dist/amtrak/amtrak.js",
 		"test": "npx tsc -p ./src && bash ./testing/runTests.sh"
