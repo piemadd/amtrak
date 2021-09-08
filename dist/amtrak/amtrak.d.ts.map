@@ -1,1 +1,1 @@
-{"version":3,"file":"amtrak.d.ts","sourceRoot":"","sources":["../../src/amtrak/amtrak.ts"],"names":[],"mappings":"AAGA,OAAO,EAAuB,YAAY,EAAa,MAAM,gBAAgB,CAAC;AAS9E,eAAO,MAAM,cAAc,OAAa,MAAM,KAAO,QAAQ,YAAY,EAAE,CA2B1E,CAAA"}
+{"version":3,"file":"amtrak.d.ts","sourceRoot":"","sources":["../../src/amtrak/amtrak.ts"],"names":[],"mappings":"AAGA,OAAO,EAAuB,YAAY,EAAa,MAAM,gBAAgB,CAAC;AAS9E,OAAO,EAAE,cAAc,EAAE,gBAAgB,EAAE,MAAM,sBAAsB,CAAC;AACxE,OAAO,EAAE,UAAU,EAAE,OAAO,EAAE,YAAY,EAAE,SAAS,EAAE,MAAM,gBAAgB,CAAC;AAE9E,eAAO,MAAM,cAAc,OAAa,MAAM,KAAO,QAAQ,YAAY,EAAE,CA2B1E,CAAA"}

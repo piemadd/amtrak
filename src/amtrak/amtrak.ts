@@ -10,8 +10,8 @@ const iValue: string = 'c6eb2f7f5c4740c1a2f708fefd947d39';
 const publicKey: string = '69af143c-e8cf-47f8-bf09-fc1f61e5cc33';
 const masterSegment: number = 88;
 
-export cleanTrainData, cleanStationData from "../cleaning/cleaning";
-export stationRaw, station, trainDataRaw, trainData from "../types/types";
+export { cleanTrainData, cleanStationData } from "../cleaning/cleaning";
+export { stationRaw, station, trainDataRaw, trainData } from "../types/types";
 
 export const fetchTrainData = async (i: number = 0): Promise<trainDataRaw[]> => {
 	if (i > 3) throw Error('Issue');

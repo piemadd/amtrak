@@ -1,3 +1,3 @@
-#testing/dist/*
-#testing/node_modules/*
-#testing/package-lock.json
+testing/dist/*
+testing/node_modules/*
+testing/package-lock.json
