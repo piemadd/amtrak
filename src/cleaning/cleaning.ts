@@ -7,7 +7,7 @@ const stdTimezoneOffset = ((date: Date) => {
 })
 
 const isDstObserved = (() => {
-    return new Date().getTimezoneOffset() < stdTimezoneOffset(new Date());
+    return new Date().getTimezoneOffset() > stdTimezoneOffset(new Date());
 })
 
 const dateOrNull = ((date: Date): Date => {
