@@ -50,12 +50,3 @@ const decrypt = (content: string, key: string) => {
 		{ iv: crypto.enc.Hex.parse(iValue) }
 	).toString(crypto.enc.Utf8)
 };
-
-/*
-fetchTrainData().then((trainData) => {
-	let cleanedData = cleanTrainData(trainData);
-	let dataToWrite = JSON.stringify(cleanedData);
-	fs.writeFileSync('output.json', dataToWrite);
-	console.dir(cleanedData, { depth: null })
-})
-*/
