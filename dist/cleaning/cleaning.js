@@ -1,14 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cleanTrainData = exports.cleanStationData = void 0;
-const stdTimezoneOffset = ((date) => {
-    var jan = new Date(date.getFullYear(), 0, 1);
-    var jul = new Date(date.getFullYear(), 6, 1);
-    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-});
 const isDstObserved = (() => {
-    return new Date().getTimezoneOffset() < stdTimezoneOffset(new Date());
+    let today = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var daylight = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EDT`);
+    let diffInMilliSeconds = Math.abs(daylight.getTime() - today.getTime()) / 1000;
+    const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+    if (hours == 3) {
+        return true;
+    }
+    else {
+        return false;
+    }
 });
+isDstObserved();
 const dateOrNull = ((date) => {
     if (date.toString() == 'Invalid Date') {
         return undefined;

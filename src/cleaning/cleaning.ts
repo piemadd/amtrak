@@ -1,14 +1,21 @@
 import { stationRaw, station, trainDataRaw, trainData } from "../types/types";
 
-const stdTimezoneOffset = ((date: Date) => {
-    var jan = new Date(date.getFullYear(), 0, 1);
-    var jul = new Date(date.getFullYear(), 6, 1);
-    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+const isDstObserved = (() => {
+	let today: Date = new Date();
+	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var daylight = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EDT`);
+
+	let diffInMilliSeconds = Math.abs(daylight.getTime() - today.getTime()) / 1000;
+	const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+
+	if (hours == 3) {
+		return true;
+	} else {
+		return false;
+	}
 })
 
-const isDstObserved = (() => {
-    return new Date().getTimezoneOffset() > stdTimezoneOffset(new Date());
-})
+isDstObserved();
 
 const dateOrNull = ((date: Date): Date => {
 	if (date.toString() == 'Invalid Date') {
