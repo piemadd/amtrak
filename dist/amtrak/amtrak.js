@@ -3,14 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchTrainData = exports.cleanStationData = exports.cleanTrainData = void 0;
 const axios_1 = require("axios");
 const crypto = require("crypto-js");
+const cleaning_1 = require("../cleaning/cleaning");
 const dataUrl = 'https://maps.amtrak.com/services/MapDataService/trains/getTrainsData';
 const sValue = '9a3686ac';
 const iValue = 'c6eb2f7f5c4740c1a2f708fefd947d39';
 const publicKey = '69af143c-e8cf-47f8-bf09-fc1f61e5cc33';
 const masterSegment = 88;
-var cleaning_1 = require("../cleaning/cleaning");
-Object.defineProperty(exports, "cleanTrainData", { enumerable: true, get: function () { return cleaning_1.cleanTrainData; } });
-Object.defineProperty(exports, "cleanStationData", { enumerable: true, get: function () { return cleaning_1.cleanStationData; } });
+var cleaning_2 = require("../cleaning/cleaning");
+Object.defineProperty(exports, "cleanTrainData", { enumerable: true, get: function () { return cleaning_2.cleanTrainData; } });
+Object.defineProperty(exports, "cleanStationData", { enumerable: true, get: function () { return cleaning_2.cleanStationData; } });
 const fetchTrainData = async (i = 0) => {
     if (i > 3)
         throw Error('Issue');
@@ -20,7 +21,7 @@ const fetchTrainData = async (i = 0) => {
         const encryptedPrivateKey = data.substr(data.length - masterSegment, data.length);
         const privateKey = decrypt(encryptedPrivateKey, publicKey).split('|')[0];
         const { features: parsed } = JSON.parse(decrypt(mainContent, privateKey));
-        return parsed.map(({ geometry, properties }) => {
+        return (0, cleaning_1.cleanTrainData)(parsed.map(({ geometry, properties }) => {
             const tempTrainData = {
                 coordinates: geometry.coordinates
             };
@@ -32,7 +33,7 @@ const fetchTrainData = async (i = 0) => {
                     tempTrainData[key] = properties[key];
             });
             return tempTrainData;
-        });
+        }));
     }
     catch (e) {
         return await (0, exports.fetchTrainData)();

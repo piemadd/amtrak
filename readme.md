@@ -16,7 +16,7 @@ It'n an NPM package lol:
 ## Usage/Documentation
 
 ### Types/Objects
-Currently the library returns what it gets from the API, a massive array of `trainData` objects. The following is what a `trainData` object looks like:
+Currently the library returns what it gets from the API, a massive array of `trainData` objects. Simply calling `fetchTrainData()` fetches the data from the API, cleans it up, and returns it. The following is what a `trainData` object looks like:
 ```ts
 interface trainData {
 	routeName: string; //name of the route
@@ -72,8 +72,7 @@ import { fetchTrainData, cleanTrainData } from 'amtrak';
 
 //fetches data, cleans it, and then prints to terminal
 fetchTrainData().then((trainData) => {
-	let cleanedData = cleanTrainData(trainData);
-	console.dir(cleanedData, { depth: null })
+	console.dir(trainData, { depth: null })
 })
 ```
 
@@ -82,10 +81,11 @@ And of course, as the TS is compliled to JS, you can use that as well:
 ```js
 const amtrak = require("amtrak");
 amtrak.fetchTrainData().then((trainData) => {
-    let cleanedData = amtrak.cleanTrainData(trainData);
-    console.dir(cleanedData, { depth: null })
+    console.dir(trainData, { depth: null })
 });
 ```
+
+(wait they're like the same lmao)
 
 ## Contributing
 I don't currently have any official contributing templates, but please make sure to add some testing code to `testing/src/testAll.ts`. Anything you add should take one of the existing types and return a modified version of it or a new type which you define in `src/types/types.ts`.

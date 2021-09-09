@@ -13,7 +13,7 @@ const masterSegment: number = 88;
 export { cleanTrainData, cleanStationData } from "../cleaning/cleaning";
 export { stationRaw, station, trainDataRaw, trainData } from "../types/types";
 
-export const fetchTrainData = async (i: number = 0): Promise<trainDataRaw[]> => {
+export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 	if (i > 3) throw Error('Issue');
 	try {
 		const { data } = await axios.get(dataUrl);
@@ -22,7 +22,7 @@ export const fetchTrainData = async (i: number = 0): Promise<trainDataRaw[]> => 
 		const encryptedPrivateKey = data.substr(data.length - masterSegment, data.length);
 		const privateKey = decrypt(encryptedPrivateKey, publicKey).split('|')[0]
 		const { features:parsed } = JSON.parse(decrypt(mainContent, privateKey));
-		return parsed.map(({ geometry, properties }: any) => {
+		return cleanTrainData(parsed.map(({ geometry, properties }: any) => {
 			const tempTrainData: trainDataRaw = <trainDataRaw>{
 				coordinates: geometry.coordinates
 			};
@@ -36,7 +36,7 @@ export const fetchTrainData = async (i: number = 0): Promise<trainDataRaw[]> => 
 				if (!key.startsWith('Station') && !tempTrainData.hasOwnProperty(key)) tempTrainData[key] = properties[key];
 			})
 			return tempTrainData;
-		});
+		}));
 	} catch (e) {
 		return await fetchTrainData();
 	}
