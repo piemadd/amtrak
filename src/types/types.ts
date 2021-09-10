@@ -19,6 +19,7 @@ export interface stationRaw {
 }
 
 export interface station {
+	trainNum: number; //number of the train station is from
 	code: string; //code of station
 	tz: string; //timezone of station (EST, EDT, CST, CDT, PST, or PDT)
 	bus: boolean; //true if bus at stop
@@ -27,6 +28,19 @@ export interface station {
 	schMnt: string; //variable from amtrak, not sure use of but could be related to any maintnence the train will go through at this station
 	autoArr: boolean; //has the train arrived at this station already?
 	autoDep: boolean; //has the train departed from this station already?
+	postArr?: Date; //actual arrival at station
+	postDep?: Date; //actual departure from station
+	postCmnt?: string; //how late it departed in english
+	estArr?: Date; //estimated arrival at station
+	estDep?: Date; //estimated departure from station
+	estArrCmnt?: string; //how early/late train will be in english
+	estDepCmnt?: string; //how early/late train will be in english
+}
+
+export interface stationMin {
+	trainNum: number; //number of the train station is from
+	schArr: Date; //scheduled arrival at station
+	schDep: Date; //scheduled departure from station
 	postArr?: Date; //actual arrival at station
 	postDep?: Date; //actual departure from station
 	postCmnt?: string; //how late it departed in english

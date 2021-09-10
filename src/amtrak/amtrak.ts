@@ -2,7 +2,7 @@ import axios from "axios";
 import * as crypto from "crypto-js";
 import * as fs from 'fs';
 import { stationRaw, station, trainDataRaw, trainData } from "../types/types";
-import { cleanTrainData, cleanStationData } from "../cleaning/cleaning";
+import { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAPI } from "../cleaning/cleaning";
 
 const dataUrl: string = 'https://maps.amtrak.com/services/MapDataService/trains/getTrainsData';
 const sValue: string = '9a3686ac';
@@ -10,8 +10,60 @@ const iValue: string = 'c6eb2f7f5c4740c1a2f708fefd947d39';
 const publicKey: string = '69af143c-e8cf-47f8-bf09-fc1f61e5cc33';
 const masterSegment: number = 88;
 
-export { cleanTrainData, cleanStationData } from "../cleaning/cleaning";
-export { stationRaw, station, trainDataRaw, trainData } from "../types/types";
+export { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAPI } from "../cleaning/cleaning";
+export { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
+
+export const fetchTrain = (async (trainNum: number) => {
+	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/trains/${trainNum.toString()}`);
+	let originalData: trainData[] = await dataRaw.data;
+
+	let finalTrains = await cleanTrainDataAPI(originalData);
+
+	return finalTrains;
+});
+
+export const fetchAllTrains = (async () => {
+	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/trains`);
+	let originalData: trainData[] = await dataRaw.data;
+
+	let finalTrains = {};
+
+	let trains = Object.keys(originalData);
+	for (let i = 0; i < trains.length; i++) {
+		// @ts-ignore
+		finalTrains[trains[i]] = await cleanTrainDataAPI(originalData[trains[i]]);
+	}
+
+	return finalTrains;
+});
+
+export const fetchStation = (async (stationCode: string) => {
+	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations/${stationCode}`);
+	let originalData: station[] = await dataRaw.data;
+
+	console.log(originalData.length)
+	console.log(originalData)
+
+	let finalStation = await cleanStationDataAPI(originalData);
+	console.log(finalStation)
+
+	return finalStation;
+});
+
+export const fetchAllStations = (async () => {
+	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations`);
+	let originalData = await dataRaw.data;
+
+	let finalStations = {};
+
+	let stations = Object.keys(originalData);
+	for (let i = 0; i < stations.length; i++) {
+		// @ts-ignore
+		finalStations[stations[i]] = await cleanStationDataAPI(originalData[stations[i]]);
+	}
+
+	return finalStations;
+});
 
 export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 	if (i > 3) throw Error('Issue');

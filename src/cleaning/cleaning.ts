@@ -1,4 +1,4 @@
-import { stationRaw, station, trainDataRaw, trainData } from "../types/types";
+import { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
 
 const isDstObserved = (() => {
 	let today: Date = new Date();
@@ -25,7 +25,72 @@ const dateOrNull = ((date: Date): Date => {
 	}
 })
 
-export const cleanStationData = ((originalData: stationRaw[]): station[] => {
+export const cleanStationDataAPI = ((originalData: station[]) => {
+	let resultingData: stationMin[] = [];
+
+	originalData.forEach((originalStation: station) => {
+		let tempSchArr = originalStation.schArr;
+		let tempSchDep = originalStation.schDep;
+		let tempPostArr = originalStation.postArr;
+		let tempPostDep = originalStation.postDep;
+		let tempEstARr = originalStation.estArr;
+		let estDep = originalStation.estDep;
+
+		if ((tempSchArr != undefined) && (tempSchArr != null)) {tempSchArr = new Date(tempSchArr)};
+		if ((tempSchDep != undefined) && (tempSchDep != null)) {tempSchDep = new Date(tempSchDep)};
+		if ((tempPostArr != undefined) && (tempPostArr != null)) {tempPostArr = new Date(tempPostArr)};
+		if ((tempPostDep != undefined) && (tempPostDep != null)) {tempPostDep = new Date(tempPostDep)};
+		if ((tempEstARr != undefined) && (tempEstARr != null)) {tempEstARr = new Date(tempEstARr)};
+		if ((estDep != undefined) && (estDep != null)) {estDep = new Date(estDep)};
+
+		let stationTemp =  {
+			trainNum: originalStation.trainNum, //number of the train station is from
+			schArr: tempSchArr, //scheduled arrival at station
+			schDep: tempSchDep, //scheduled departure from station
+			postArr: tempPostArr, //actual arrival at station
+			postDep: tempPostDep, //actual departure from station
+			postCmnt: originalStation.postCmnt, //how late it departed in english
+			estArr: tempEstARr, //estimated arrival at station
+			estDep: estDep, //estimated departure from station
+			estArrCmnt: originalStation.estArrCmnt, //how early/late train will be in english
+			estDepCmnt: originalStation.estDepCmnt, //how early/late train will be in english
+		}
+		resultingData.push(stationTemp)
+	});
+	return resultingData;
+});
+
+export const cleanTrainDataAPI = ((originalData: trainData[]) => {
+	let finalTrains: trainData[] = [];
+	originalData.forEach((originalTrain: trainData) => {
+		let trainDataTemp: trainData = {
+			routeName: originalTrain.routeName, //name of the route
+			trainNum: originalTrain.trainNum, //train number
+			coordinates: originalTrain.coordinates, //coordinates in lat, lon
+			lat: originalTrain.lat, //current latitude position of train
+			lon: originalTrain.lon, //current longitude position of train
+			heading: originalTrain.heading, //heading of the train in N, NE, E, SE, S, etc.
+			velocity: originalTrain.velocity,
+			lastValTS: new Date(originalTrain.lastValTS), //Date object which train was last updated
+			lastArr: new Date(originalTrain.lastArr), //Date object which train arrived at final destination, null if still uncompleted
+			trainState: originalTrain.trainState, //state of the train ("Predeparture", "Active", or "Completed")
+			statusMsg: originalTrain.statusMsg, //status of the train (" " if normal, "SERVICE DISRUPTION" if the obvious has happened)
+			serviceDisruption: originalTrain.serviceDisruption, //true if a service disruption
+			eventCode: originalTrain.eventCode, //upcoming or current stop
+			destCode: originalTrain.destCode, //final destination
+			origCode: originalTrain.origCode, //origin station
+			originTZ: originalTrain.originTZ, //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
+			origSchDep: new Date(originalTrain.origSchDep), //scheduled original departure for train
+			aliases: originalTrain.aliases, //train numbers which also refer to this train
+			updatedAt: new Date(originalTrain.updatedAt), //the time this data was retrieved from the server
+			stations: cleanStationDataAPI(originalTrain.stations), //poop
+		};
+		finalTrains.push(trainDataTemp);
+	})
+	return finalTrains;
+})
+
+export const cleanStationData = ((originalData: stationRaw[], originalTrainNum: number): station[] => {
 	let resultingData: station[] = [];
 
 	originalData.forEach((originalStation: stationRaw) => {
@@ -38,6 +103,7 @@ export const cleanStationData = ((originalData: stationRaw[]): station[] => {
 		let stationTimeZone: string = `${originalStation.tz}${middleTimeLetter}T`
 
 		let resultingStation: station = {
+			trainNum: originalTrainNum, //number of parent train
 			code: originalStation.code, //code of station
 			tz: stationTimeZone, //timezone of station (EST, EDT, CST, CDT, PST, or PDT)
 			bus: originalStation.bus, //true if bus at stop
@@ -178,7 +244,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			// @ts-ignore
 			aliases: listOfAliases, //train numbers which also refer to this train
 			updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} E${middleTimeLetter}T`)), //the time this data was retrieved from the server
-			stations: cleanStationData(originalTrain.Stations) // array of station objects
+			stations: cleanStationData(originalTrain.Stations, parseInt(originalTrain.TrainNum)) // array of station objects
 		}
 		// @ts-ignore
 		resultingData.push(resultingTrain);

@@ -16,6 +16,7 @@ export interface stationRaw {
     estdepcmnt?: string;
 }
 export interface station {
+    trainNum: number;
     code: string;
     tz: string;
     bus: boolean;
@@ -24,6 +25,18 @@ export interface station {
     schMnt: string;
     autoArr: boolean;
     autoDep: boolean;
+    postArr?: Date;
+    postDep?: Date;
+    postCmnt?: string;
+    estArr?: Date;
+    estDep?: Date;
+    estArrCmnt?: string;
+    estDepCmnt?: string;
+}
+export interface stationMin {
+    trainNum: number;
+    schArr: Date;
+    schDep: Date;
     postArr?: Date;
     postDep?: Date;
     postCmnt?: string;

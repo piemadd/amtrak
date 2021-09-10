@@ -13,71 +13,60 @@ It'n an NPM package lol:
 
 `npm install amtrak`
 
-## Usage/Documentation
+## Documentation
 
-### Types/Objects
-Currently the library returns what it gets from the API, a massive array of `trainData` objects. Simply calling `fetchTrainData()` fetches the data from the API, cleans it up, and returns it. The following is what a `trainData` object looks like:
-```ts
-interface trainData {
-	routeName: string; //name of the route
-	trainNum: number; //train number
-	coordinates: number[]; //coordinates in lat, lon
-	lat: number; //current latitude position of train
-	lon: number; //current longitude position of train
-	heading: string; //heading of the train in N, NE, E, SE, S, etc.
-	velocity: number;
-	lastValTS: Date; //Date object which train was last updated
-	lastArr: Date; //Date object which train arrived at final destination, null if still uncompleted
-	trainState: string; //state of the train ("Predeparture", "Active", or "Completed")
-	statusMsg: string; //status of the train (" " if normal, "SERVICE DISRUPTION" if the obvious has happened)
-	serviceDisruption: boolean; //true if a service disruption
-	eventCode: string; //upcoming or current stop
-	destCode: string; //final destination
-	origCode: string; //origin station
-	originTZ: string; //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
-	origSchDep: Date; //scheduled original departure for train
-	aliases: number[]; //train numbers which also refer to this train
-	updatedAt: Date; //the time this data was retrieved from the server
-	stations: station[]; //
-};
-```
-If you look at the bottom, you see an array of `station` objects as well, so it's probably important to know what those are as well:
-```ts
-interface station {
-	code: string; //code of station
-	tz: string; //timezone of station (EST, EDT, CST, CDT, PST, or PDT)
-	bus: boolean; //true if bus at stop
-	schArr: Date; //scheduled arrival at station
-	schDep: Date; //scheduled departure from station
-	schMnt: string; //variable from amtrak, not sure use of but could be related to any maintnence the train will go through at this station
-	autoArr: boolean; //has the train arrived at this station already?
-	autoDep: boolean; //has the train departed from this station already?
-	postArr?: Date; //actual arrival at station
-	postDep?: Date; //actual departure from station
-	postCmnt?: string; //how late it departed in english
-	estArr?: Date; //estimated arrival at station
-	estDep?: Date; //estimated departure from station
-	estArrCmnt?: string; //how early/late train will be in english
-	estDepCmnt?: string; //how early/late train will be in english
-}
-```
-To make better sense of this information, check out `examples/completed.json` to see what a completed train's data looks like and `examples/inprogress.json` to see what an in progress' train looks like. You can also look in `examples/full.json` to see what a full object looks like in JSON. Do note, the dates in these JSON objects are just what happens when you convert a `Date` object to a string. In reality, you will have a Date object to work with.
+(Documentation moved to docs.md)
 
-Also, everything is currently synchronous, though I do plan on moving to asynchronous functions in the future.
-
-### TS Example
+## TS Examples
 As this library was written in TypeScript, it is naturally easy to use it:
+### Fetching All Data
 ```ts
-import { fetchTrainData, cleanTrainData } from 'amtrak';
+import { fetchTrainData } from 'amtrak';
 
 //fetches data, cleans it, and then prints to terminal
 fetchTrainData().then((trainData) => {
 	console.dir(trainData, { depth: null })
 })
 ```
+### Fetching All Trains
+```ts
+import { fetchAllTrains } from 'amtrak';
 
-### JS Example
-And of course, as the TS is compliled to JS, you can use that as well:
+//fetches all trains and then prints to terminal
+fetchAllTrains().then((trainData) => {
+	console.dir(trainData, { depth: null })
+})
+```
+### Fetching Single Trains
+```ts
+import { fetchTrain } from 'amtrak';
+
+//fetches all trains with the number 20 (crescent) and then prints to terminal
+fetchTrain(20).then((trainData) => {
+	console.dir(trainData, { depth: null })
+})
+```
+### Fetching All Stations
+```ts
+import { fetchAllStations } from 'amtrak';
+
+//fetches all stations and then prints to terminal
+fetchAllStations().then((stationData) => {
+	console.dir(stationData, { depth: null })
+})
+```
+### Fetching Single Stations
+```ts
+import { fetchStation } from 'amtrak';
+
+//fetches all station data for CHI (chicago) and then prints to terminal
+fetchStation('CHI').then((stationData) => {
+	console.dir(stationData, { depth: null })
+})
+```
+
+## JS Example
+And of course, as the TS is compliled to JS, you can use that as well. The only real difference between the two is how you (generally) import, so everything lese is the same. The only difference here is that you can import *from* in ts, but you require the whole module is js.
 ```js
 const amtrak = require("amtrak");
 amtrak.fetchTrainData().then((trainData) => {
