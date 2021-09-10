@@ -26,7 +26,7 @@ const dateOrNull = ((date: Date): Date => {
 })
 
 export const cleanStationDataAPI = ((originalData: station[]) => {
-	let resultingData: stationMin[] = [];
+	let resultingData: station[] = [];
 
 	originalData.forEach((originalStation: station) => {
 		let tempSchArr = originalStation.schArr;
@@ -45,8 +45,14 @@ export const cleanStationDataAPI = ((originalData: station[]) => {
 
 		let stationTemp =  {
 			trainNum: originalStation.trainNum, //number of the train station is from
+			code: originalStation.code,
+			tz: originalStation.tz,
+			bus: originalStation.bus,
 			schArr: tempSchArr, //scheduled arrival at station
 			schDep: tempSchDep, //scheduled departure from station
+			schMnt: originalStation.schMnt,
+			autoArr: originalStation.autoArr,
+			autoDep: originalStation.autoDep,
 			postArr: tempPostArr, //actual arrival at station
 			postDep: tempPostDep, //actual departure from station
 			postCmnt: originalStation.postCmnt, //how late it departed in english
@@ -89,6 +95,41 @@ export const cleanTrainDataAPI = ((originalData: trainData[]) => {
 	})
 	return finalTrains;
 })
+
+export const cleanStationDataAPIMin = ((originalData: station[]) => {
+	let resultingData: stationMin[] = [];
+
+	originalData.forEach((originalStation: station) => {
+		let tempSchArr = originalStation.schArr;
+		let tempSchDep = originalStation.schDep;
+		let tempPostArr = originalStation.postArr;
+		let tempPostDep = originalStation.postDep;
+		let tempEstARr = originalStation.estArr;
+		let estDep = originalStation.estDep;
+
+		if ((tempSchArr != undefined) && (tempSchArr != null)) {tempSchArr = new Date(tempSchArr)};
+		if ((tempSchDep != undefined) && (tempSchDep != null)) {tempSchDep = new Date(tempSchDep)};
+		if ((tempPostArr != undefined) && (tempPostArr != null)) {tempPostArr = new Date(tempPostArr)};
+		if ((tempPostDep != undefined) && (tempPostDep != null)) {tempPostDep = new Date(tempPostDep)};
+		if ((tempEstARr != undefined) && (tempEstARr != null)) {tempEstARr = new Date(tempEstARr)};
+		if ((estDep != undefined) && (estDep != null)) {estDep = new Date(estDep)};
+
+		let stationTemp =  {
+			trainNum: originalStation.trainNum, //number of the train station is from
+			schArr: tempSchArr, //scheduled arrival at station
+			schDep: tempSchDep, //scheduled departure from station
+			postArr: tempPostArr, //actual arrival at station
+			postDep: tempPostDep, //actual departure from station
+			postCmnt: originalStation.postCmnt, //how late it departed in english
+			estArr: tempEstARr, //estimated arrival at station
+			estDep: estDep, //estimated departure from station
+			estArrCmnt: originalStation.estArrCmnt, //how early/late train will be in english
+			estDepCmnt: originalStation.estDepCmnt, //how early/late train will be in english
+		}
+		resultingData.push(stationTemp)
+	});
+	return resultingData;
+});
 
 export const cleanStationData = ((originalData: stationRaw[], originalTrainNum: number): station[] => {
 	let resultingData: station[] = [];

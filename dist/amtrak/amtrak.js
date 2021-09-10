@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchTrainData = exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = exports.cleanStationDataMinAPI = exports.cleanStationDataAPI = exports.cleanTrainDataAPI = exports.cleanStationData = exports.cleanTrainData = void 0;
+exports.fetchTrainData = exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = exports.cleanStationDataAPI = exports.cleanTrainDataAPI = exports.cleanStationData = exports.cleanTrainData = void 0;
 const axios_1 = require("axios");
 const crypto = require("crypto-js");
 const cleaning_1 = require("../cleaning/cleaning");
@@ -14,7 +14,6 @@ Object.defineProperty(exports, "cleanTrainData", { enumerable: true, get: functi
 Object.defineProperty(exports, "cleanStationData", { enumerable: true, get: function () { return cleaning_2.cleanStationData; } });
 Object.defineProperty(exports, "cleanTrainDataAPI", { enumerable: true, get: function () { return cleaning_2.cleanTrainDataAPI; } });
 Object.defineProperty(exports, "cleanStationDataAPI", { enumerable: true, get: function () { return cleaning_2.cleanStationDataAPI; } });
-Object.defineProperty(exports, "cleanStationDataMinAPI", { enumerable: true, get: function () { return cleaning_2.cleanStationDataMinAPI; } });
 exports.fetchTrain = (async (trainNum) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.piemadd.com/v1/trains/${trainNum.toString()}`);
     let originalData = await dataRaw.data;
@@ -36,7 +35,7 @@ exports.fetchStation = (async (stationCode) => {
     let originalData = await dataRaw.data;
     console.log(originalData.length);
     console.log(originalData);
-    let finalStation = await (0, cleaning_1.cleanStationDataMinAPI)(originalData);
+    let finalStation = await (0, cleaning_1.cleanStationDataAPI)(originalData);
     console.log(finalStation);
     return finalStation;
 });
@@ -46,12 +45,9 @@ exports.fetchAllStations = (async () => {
     let finalStations = {};
     let stations = Object.keys(originalData);
     for (let i = 0; i < stations.length; i++) {
-        finalStations[stations[i]] = await (0, cleaning_1.cleanStationDataMinAPI)(originalData[stations[i]]);
+        finalStations[stations[i]] = await (0, cleaning_1.cleanStationDataAPI)(originalData[stations[i]]);
     }
     return finalStations;
-});
-(0, exports.fetchStation)("ATL").then((out) => {
-    console.log("done");
 });
 const fetchTrainData = async (i = 0) => {
     if (i > 3)
