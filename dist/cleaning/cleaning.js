@@ -1,15 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cleanTrainData = exports.cleanStationData = void 0;
+exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = void 0;
 const isDstObserved = (() => {
     let today = new Date();
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var standard = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EST`);
     var daylight = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EDT`);
-    console.log(standard.getTimezoneOffset());
-    console.log(daylight.getTimezoneOffset());
-    console.log(today.getTimezoneOffset());
-    return true;
+    let diffInMilliSeconds = Math.abs(daylight.getTime() - today.getTime()) / 1000;
+    const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+    if (hours == 3) {
+        return true;
+    }
+    else {
+        return false;
+    }
 });
 isDstObserved();
 const dateOrNull = ((date) => {
@@ -20,7 +23,140 @@ const dateOrNull = ((date) => {
         return date;
     }
 });
-exports.cleanStationData = ((originalData) => {
+exports.cleanStationDataAPI = ((originalData) => {
+    let resultingData = [];
+    originalData.forEach((originalStation) => {
+        let tempSchArr = originalStation.schArr;
+        let tempSchDep = originalStation.schDep;
+        let tempPostArr = originalStation.postArr;
+        let tempPostDep = originalStation.postDep;
+        let tempEstARr = originalStation.estArr;
+        let estDep = originalStation.estDep;
+        if ((tempSchArr != undefined) && (tempSchArr != null)) {
+            tempSchArr = new Date(tempSchArr);
+        }
+        ;
+        if ((tempSchDep != undefined) && (tempSchDep != null)) {
+            tempSchDep = new Date(tempSchDep);
+        }
+        ;
+        if ((tempPostArr != undefined) && (tempPostArr != null)) {
+            tempPostArr = new Date(tempPostArr);
+        }
+        ;
+        if ((tempPostDep != undefined) && (tempPostDep != null)) {
+            tempPostDep = new Date(tempPostDep);
+        }
+        ;
+        if ((tempEstARr != undefined) && (tempEstARr != null)) {
+            tempEstARr = new Date(tempEstARr);
+        }
+        ;
+        if ((estDep != undefined) && (estDep != null)) {
+            estDep = new Date(estDep);
+        }
+        ;
+        let stationTemp = {
+            trainNum: originalStation.trainNum,
+            code: originalStation.code,
+            tz: originalStation.tz,
+            bus: originalStation.bus,
+            schArr: tempSchArr,
+            schDep: tempSchDep,
+            schMnt: originalStation.schMnt,
+            autoArr: originalStation.autoArr,
+            autoDep: originalStation.autoDep,
+            postArr: tempPostArr,
+            postDep: tempPostDep,
+            postCmnt: originalStation.postCmnt,
+            estArr: tempEstARr,
+            estDep: estDep,
+            estArrCmnt: originalStation.estArrCmnt,
+            estDepCmnt: originalStation.estDepCmnt,
+        };
+        resultingData.push(stationTemp);
+    });
+    return resultingData;
+});
+exports.cleanTrainDataAPI = ((originalData) => {
+    let finalTrains = [];
+    originalData.forEach((originalTrain) => {
+        let trainDataTemp = {
+            routeName: originalTrain.routeName,
+            trainNum: originalTrain.trainNum,
+            coordinates: originalTrain.coordinates,
+            lat: originalTrain.lat,
+            lon: originalTrain.lon,
+            heading: originalTrain.heading,
+            velocity: originalTrain.velocity,
+            lastValTS: new Date(originalTrain.lastValTS),
+            lastArr: new Date(originalTrain.lastArr),
+            trainState: originalTrain.trainState,
+            statusMsg: originalTrain.statusMsg,
+            serviceDisruption: originalTrain.serviceDisruption,
+            eventCode: originalTrain.eventCode,
+            destCode: originalTrain.destCode,
+            origCode: originalTrain.origCode,
+            originTZ: originalTrain.originTZ,
+            origSchDep: new Date(originalTrain.origSchDep),
+            aliases: originalTrain.aliases,
+            updatedAt: new Date(originalTrain.updatedAt),
+            stations: (0, exports.cleanStationDataAPI)(originalTrain.stations),
+        };
+        finalTrains.push(trainDataTemp);
+    });
+    return finalTrains;
+});
+exports.cleanStationDataAPIMin = ((originalData) => {
+    let resultingData = [];
+    originalData.forEach((originalStation) => {
+        let tempSchArr = originalStation.schArr;
+        let tempSchDep = originalStation.schDep;
+        let tempPostArr = originalStation.postArr;
+        let tempPostDep = originalStation.postDep;
+        let tempEstARr = originalStation.estArr;
+        let estDep = originalStation.estDep;
+        if ((tempSchArr != undefined) && (tempSchArr != null)) {
+            tempSchArr = new Date(tempSchArr);
+        }
+        ;
+        if ((tempSchDep != undefined) && (tempSchDep != null)) {
+            tempSchDep = new Date(tempSchDep);
+        }
+        ;
+        if ((tempPostArr != undefined) && (tempPostArr != null)) {
+            tempPostArr = new Date(tempPostArr);
+        }
+        ;
+        if ((tempPostDep != undefined) && (tempPostDep != null)) {
+            tempPostDep = new Date(tempPostDep);
+        }
+        ;
+        if ((tempEstARr != undefined) && (tempEstARr != null)) {
+            tempEstARr = new Date(tempEstARr);
+        }
+        ;
+        if ((estDep != undefined) && (estDep != null)) {
+            estDep = new Date(estDep);
+        }
+        ;
+        let stationTemp = {
+            trainNum: originalStation.trainNum,
+            schArr: tempSchArr,
+            schDep: tempSchDep,
+            postArr: tempPostArr,
+            postDep: tempPostDep,
+            postCmnt: originalStation.postCmnt,
+            estArr: tempEstARr,
+            estDep: estDep,
+            estArrCmnt: originalStation.estArrCmnt,
+            estDepCmnt: originalStation.estDepCmnt,
+        };
+        resultingData.push(stationTemp);
+    });
+    return resultingData;
+});
+exports.cleanStationData = ((originalData, originalTrainNum) => {
     let resultingData = [];
     originalData.forEach((originalStation) => {
         let middleTimeLetter;
@@ -32,6 +168,7 @@ exports.cleanStationData = ((originalData) => {
         }
         let stationTimeZone = `${originalStation.tz}${middleTimeLetter}T`;
         let resultingStation = {
+            trainNum: originalTrainNum,
             code: originalStation.code,
             tz: stationTimeZone,
             bus: originalStation.bus,
@@ -157,7 +294,7 @@ exports.cleanTrainData = ((originalData) => {
             origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${originalTrain.OriginTZ}${middleTimeLetter}T`)),
             aliases: listOfAliases,
             updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} E${middleTimeLetter}T`)),
-            stations: (0, exports.cleanStationData)(originalTrain.Stations)
+            stations: (0, exports.cleanStationData)(originalTrain.Stations, parseInt(originalTrain.TrainNum))
         };
         resultingData.push(resultingTrain);
     });

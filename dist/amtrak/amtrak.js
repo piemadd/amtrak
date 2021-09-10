@@ -33,10 +33,7 @@ exports.fetchAllTrains = (async () => {
 exports.fetchStation = (async (stationCode) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.piemadd.com/v1/stations/${stationCode}`);
     let originalData = await dataRaw.data;
-    console.log(originalData.length);
-    console.log(originalData);
     let finalStation = await (0, cleaning_1.cleanStationDataAPI)(originalData);
-    console.log(finalStation);
     return finalStation;
 });
 exports.fetchAllStations = (async () => {
