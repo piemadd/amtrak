@@ -3,11 +3,6 @@
 ## Disclaimer
 This library and it's creator have no relation to Amtrak. Amtrak and the Atmrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is not intended for use outside of [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html). 
 
-## Don't be an A\*\*
-- Please refrain from spamming the API, as that is an a\*\*hole move. The API returns an object with everything in it, so there is ***literally no reason*** to spam the API. 
-- If you want to keep your application with the most up to date, I would simply update once per minute (central server) or every 5 to 10 minutes (individual clients).
-- In the future, I plan on hosting my own free API which will serve the same data as the Amtrak API, just with some added benefits, such as pulling information for specific trains and stations. I plan on allowing this library to interact with said API, so stay tuned.
-
 ## Installation
 It'n an NPM package lol:
 
