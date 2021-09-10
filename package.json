@@ -1,6 +1,6 @@
 {
 	"name": "amtrak",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "A simple and easy way to parse data from Amtrak's train tracking API.",
 	"main": "dist/amtrak/amtrak.js",
 	"types": "dist/amtrak/amtrak.d.ts",

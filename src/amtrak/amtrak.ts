@@ -41,11 +41,7 @@ export const fetchStation = (async (stationCode: string) => {
 	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations/${stationCode}`);
 	let originalData: station[] = await dataRaw.data;
 
-	console.log(originalData.length)
-	console.log(originalData)
-
 	let finalStation = await cleanStationDataAPI(originalData);
-	console.log(finalStation)
 
 	return finalStation;
 });
