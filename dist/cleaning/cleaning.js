@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = void 0;
+exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = exports.tzConv = void 0;
 const isDstObserved = (() => {
     let today = new Date();
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -14,7 +14,19 @@ const isDstObserved = (() => {
         return false;
     }
 });
-isDstObserved();
+exports.tzConv = ((threeLetter) => {
+    let zones = {
+        'EST': 'America/New_York',
+        'EDT': 'America/New_York',
+        'CST': 'America/Chicago',
+        'CDT': 'America/Chicago',
+        'MST': 'America/Denver',
+        'MDT': 'America/Denver',
+        'PST': 'America/Los_Angeles',
+        'PDT': 'America/Los_Angeles'
+    };
+    return zones[threeLetter];
+});
 const dateOrNull = ((date) => {
     if (date.toString() == 'Invalid Date') {
         return undefined;

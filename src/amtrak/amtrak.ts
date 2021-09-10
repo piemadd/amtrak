@@ -10,7 +10,7 @@ const iValue: string = 'c6eb2f7f5c4740c1a2f708fefd947d39';
 const publicKey: string = '69af143c-e8cf-47f8-bf09-fc1f61e5cc33';
 const masterSegment: number = 88;
 
-export { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAPI } from "../cleaning/cleaning";
+export { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAPI, tzConv } from "../cleaning/cleaning";
 export { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
 
 export const fetchTrain = (async (trainNum: number) => {

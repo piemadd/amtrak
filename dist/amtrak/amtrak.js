@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchTrainData = exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = exports.cleanStationDataAPI = exports.cleanTrainDataAPI = exports.cleanStationData = exports.cleanTrainData = void 0;
+exports.fetchTrainData = exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = exports.tzConv = exports.cleanStationDataAPI = exports.cleanTrainDataAPI = exports.cleanStationData = exports.cleanTrainData = void 0;
 const axios_1 = require("axios");
 const crypto = require("crypto-js");
 const cleaning_1 = require("../cleaning/cleaning");
@@ -14,6 +14,7 @@ Object.defineProperty(exports, "cleanTrainData", { enumerable: true, get: functi
 Object.defineProperty(exports, "cleanStationData", { enumerable: true, get: function () { return cleaning_2.cleanStationData; } });
 Object.defineProperty(exports, "cleanTrainDataAPI", { enumerable: true, get: function () { return cleaning_2.cleanTrainDataAPI; } });
 Object.defineProperty(exports, "cleanStationDataAPI", { enumerable: true, get: function () { return cleaning_2.cleanStationDataAPI; } });
+Object.defineProperty(exports, "tzConv", { enumerable: true, get: function () { return cleaning_2.tzConv; } });
 exports.fetchTrain = (async (trainNum) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.piemadd.com/v1/trains/${trainNum.toString()}`);
     let originalData = await dataRaw.data;

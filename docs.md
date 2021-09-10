@@ -78,7 +78,9 @@ Also I am terrible at writing so these descriptions are pretty bad, but feel fre
 
 `fetchStation(stationCode)` - Returns a list of `stationMin` objects correlating to the station code passed, with each object being related to a train arriving within the next few hours or having left a few hours back. 
 
-`fetchAllStations()` = Returns an object where the keys are station codes and the objects being what `fetchStation()` would return.
+`fetchAllStations()` - Returns an object where the keys are station codes and the objects being what `fetchStation()` would return.
+
+`tzConv(threeLetterTZ)` - Returns the lengthened timezone when given a three-letter timezone. For example, passing `EST` would return `America/New_York`. Is here because JS' `Date()` object is indecisive on which one it wants for each function.
 
 ## API
 The last four functions above are also available from an API enpoint, being https://api.amtrak.piemadd.com/v1, which can be used to get a feel for the system and also add Amtrak API support to other libraries. Everything is returned as JSON.

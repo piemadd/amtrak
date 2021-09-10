@@ -15,7 +15,21 @@ const isDstObserved = (() => {
 	}
 })
 
-isDstObserved();
+export const tzConv = ((threeLetter: string) => {
+	let zones = {
+		'EST': 'America/New_York',
+		'EDT': 'America/New_York',
+		'CST': 'America/Chicago',
+		'CDT': 'America/Chicago',
+		'MST': 'America/Denver',
+		'MDT': 'America/Denver',
+		'PST': 'America/Los_Angeles',
+		'PDT': 'America/Los_Angeles'
+	};
+	
+	// @ts-ignore
+	return zones[threeLetter];
+})
 
 const dateOrNull = ((date: Date): Date => {
 	if (date.toString() == 'Invalid Date') {
