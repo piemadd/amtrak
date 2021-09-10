@@ -12,6 +12,9 @@ It'n an NPM package lol:
 
 (Documentation moved to docs.md)
 
+## Demo Repl
+Here is a demo Repl you can either just simply run or even fork (all in your browser) to see what this library is capable of: https://replit.com/@piemadd/Amtrakjs-Example
+
 ## TS Examples
 As this library was written in TypeScript, it is naturally easy to use it:
 ### Fetching All Data
