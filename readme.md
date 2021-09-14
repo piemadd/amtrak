@@ -14,7 +14,7 @@ It'n an NPM package lol:
 
 ## Documentation
 
-(Documentation moved to docs.md)
+[View on Github](https://github.com/pieromqwerty/amtrak/blob/master/docs.md)
 
 ## Demo Repl
 Here is a demo Repl you can either just simply run or even fork (all in your browser) to see what this library is capable of: https://replit.com/@piemadd/Amtrakjs-Example
