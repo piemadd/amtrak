@@ -68,7 +68,7 @@ fetchStation('CHI').then((stationData) => {
 ```
 
 ## JS Example
-And of course, as the TS is compliled to JS, you can use that as well. The only real difference between the two is how you (generally) import, so everything lese is the same. The only difference here is that you can import *from* in ts, but you require the whole module is js.
+And of course, as the TS is compliled to JS, you can use that as well. The only real difference between the two is how you (generally) import, so everything else is the same. The only difference here is that you can import *from* in ts, but you require the whole module is js.
 ```js
 const amtrak = require("amtrak");
 amtrak.fetchTrainData().then((trainData) => {
