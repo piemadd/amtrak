@@ -287,6 +287,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			velocity: parseFloat(originalTrain.Velocity),
 			// @ts-ignore
 			lastValTS: dateOrNull(new Date(`${originalTrain.LastValTS} ${trainTimeZone}`)), //Date object which train was last updated
+			// @ts-ignore
 			trainTimeZone: trainTimeZone, //the current time zone of the train
 			// @ts-ignore
 			lastArr: lastArrTime, //Date object which train arrived at final destination, null if still uncompleted

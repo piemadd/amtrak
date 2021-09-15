@@ -86,6 +86,7 @@ export interface trainData {
     heading: string;
     velocity: number;
     lastValTS: Date;
+    trainTimeZone: string;
     lastArr: Date;
     trainState: string;
     statusMsg: string;
