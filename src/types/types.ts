@@ -92,6 +92,7 @@ export interface trainData {
 	heading: string; //heading of the train in N, NE, E, SE, S, etc.
 	velocity: number;
 	lastValTS: Date; //Date object which train was last updated
+	trainTimeZone: string, //the current time zone of the train
 	lastArr: Date; //Date object which train arrived at final destination, null if still uncompleted
 	trainState: string; //state of the train ("Predeparture", "Active", or "Completed")
 	statusMsg: string; //status of the train (" " if normal, "SERVICE DISRUPTION" if the obvious has happened)

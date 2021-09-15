@@ -92,6 +92,7 @@ export const cleanTrainDataAPI = ((originalData: trainData[]) => {
 			heading: originalTrain.heading, //heading of the train in N, NE, E, SE, S, etc.
 			velocity: originalTrain.velocity,
 			lastValTS: new Date(originalTrain.lastValTS), //Date object which train was last updated
+			trainTimeZone: originalTrain.trainTimeZone, //the current time zone of the train
 			lastArr: new Date(originalTrain.lastArr), //Date object which train arrived at final destination, null if still uncompleted
 			trainState: originalTrain.trainState, //state of the train ("Predeparture", "Active", or "Completed")
 			statusMsg: originalTrain.statusMsg, //status of the train (" " if normal, "SERVICE DISRUPTION" if the obvious has happened)
@@ -286,6 +287,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			velocity: parseFloat(originalTrain.Velocity),
 			// @ts-ignore
 			lastValTS: dateOrNull(new Date(`${originalTrain.LastValTS} ${trainTimeZone}`)), //Date object which train was last updated
+			trainTimeZone: trainTimeZone, //the current time zone of the train
 			// @ts-ignore
 			lastArr: lastArrTime, //Date object which train arrived at final destination, null if still uncompleted
 			trainState: originalTrain.TrainState, //state of the train ("Predeparture", "Active", or "Completed")
