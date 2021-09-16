@@ -6,4 +6,3 @@ export declare const fetchAllTrains: () => Promise<{}>;
 export declare const fetchStation: (stationCode: string) => Promise<station[]>;
 export declare const fetchAllStations: () => Promise<{}>;
 export declare const fetchTrainData: (i?: number) => Promise<trainData[]>;
-//# sourceMappingURL=amtrak.d.ts.map

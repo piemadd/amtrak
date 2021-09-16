@@ -1,0 +1,11 @@
+testing/dist/*
+testing/node_modules/*
+testing/package-lock.json
+node_modules
+replit.nix
+.replit
+images
+.gitignore
+docs.md
+testing
+src

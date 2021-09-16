@@ -100,4 +100,3 @@ export interface trainData {
     updatedAt: Date;
     stations: station[];
 }
-//# sourceMappingURL=types.d.ts.map

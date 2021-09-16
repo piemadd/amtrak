@@ -78,4 +78,3 @@ exports.fetchTrainData = fetchTrainData;
 const decrypt = (content, key) => {
     return crypto.AES.decrypt(crypto.lib.CipherParams.create({ ciphertext: crypto.enc.Base64.parse(content) }), crypto.PBKDF2(key, crypto.enc.Hex.parse(sValue), { keySize: 4, iterations: 1e3 }), { iv: crypto.enc.Hex.parse(iValue) }).toString(crypto.enc.Utf8);
 };
-//# sourceMappingURL=amtrak.js.map
