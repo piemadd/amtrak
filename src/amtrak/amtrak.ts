@@ -26,13 +26,10 @@ export const fetchAllTrains = (async () => {
 	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/trains`);
 	let originalData: trainData[] = await dataRaw.data;
 
-	let finalTrains = {};
-
-	let trains = Object.keys(originalData);
-	for (let i = 0; i < trains.length; i++) {
+	let finalTrains = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([trainNum, train]) => {
 		// @ts-ignore
-		finalTrains[trains[i]] = await cleanTrainDataAPI(originalData[trains[i]]);
-	}
+		return [trainNum, await cleanStationDataAPI(train)]
+	})));
 
 	return finalTrains;
 });
@@ -49,22 +46,11 @@ export const fetchStation = (async (stationCode: string) => {
 export const fetchAllStations = (async () => {
 	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations`);
 	let originalData = await dataRaw.data;
-	let stations = Object.keys(originalData);
-	
-	let finalStations = {};
 
-	let temppeepee = await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
-		console.log(station)
+	let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
 		// @ts-ignore
 		return [stationCode, await cleanStationDataAPI(station)]
-	}));
-
-	console.log(temppeepee)
-
-	for (let i = 0; i < stations.length; i++) {
-	// @ts-ignore
-	finalStations[stations[i]] = await cleanStationDataAPI(originalData[stations[i]]);
-	}
+	})));
 
 	return finalStations;
 });
