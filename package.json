@@ -6,7 +6,7 @@
 	"types": "dist/amtrak/amtrak.d.ts",
 	"scripts": {
 		"start": "npx tsc -p ./src && node ./dist/amtrak/amtrak.js",
-		"test": "npx tsc -p ./src && bash ./testing/runTests.sh"
+		"test": "bash ./testing/runTests.sh"
 	},
 	"author": "Piero Maddaleni <piero@piemadd.com> (https://www.piemadd.com/)",
 	"license": "AGPL",

@@ -42,10 +42,10 @@ exports.fetchAllStations = (async () => {
     let originalData = await dataRaw.data;
     let stations = Object.keys(originalData);
     let finalStations = {};
-    let temppeepee = Object.entries(originalData).map(async ([stationCode, station]) => {
+    let temppeepee = await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
         console.log(station);
         return [stationCode, await (0, cleaning_1.cleanStationDataAPI)(station)];
-    });
+    }));
     console.log(temppeepee);
     for (let i = 0; i < stations.length; i++) {
         finalStations[stations[i]] = await (0, cleaning_1.cleanStationDataAPI)(originalData[stations[i]]);

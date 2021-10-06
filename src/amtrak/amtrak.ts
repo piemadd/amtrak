@@ -53,11 +53,11 @@ export const fetchAllStations = (async () => {
 	
 	let finalStations = {};
 
-	let temppeepee = await Object.entries(originalData).map(async ([stationCode, station]) => {
+	let temppeepee = await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
 		console.log(station)
 		// @ts-ignore
 		return [stationCode, await cleanStationDataAPI(station)]
-	})
+	}));
 
 	console.log(temppeepee)
 
