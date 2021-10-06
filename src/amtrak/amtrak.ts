@@ -49,13 +49,21 @@ export const fetchStation = (async (stationCode: string) => {
 export const fetchAllStations = (async () => {
 	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations`);
 	let originalData = await dataRaw.data;
-
+	let stations = Object.keys(originalData);
+	
 	let finalStations = {};
 
-	let stations = Object.keys(originalData);
-	for (let i = 0; i < stations.length; i++) {
+	let temppeepee = Object.entries(originalData).map(async ([stationCode, station]) => {
+		console.log(station)
 		// @ts-ignore
-		finalStations[stations[i]] = await cleanStationDataAPI(originalData[stations[i]]);
+		return [stationCode, await cleanStationDataAPI(station)]
+	})
+
+	console.log(temppeepee)
+
+	for (let i = 0; i < stations.length; i++) {
+	// @ts-ignore
+	finalStations[stations[i]] = await cleanStationDataAPI(originalData[stations[i]]);
 	}
 
 	return finalStations;
