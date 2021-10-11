@@ -86,6 +86,7 @@ export interface trainDataRaw { //DONT USE THIS FOR GOD'S SAKE
 export interface trainData {
 	routeName: string; //name of the route
 	trainNum: number; //train number
+	objectID: number; //unique identifier for this train
 	coordinates: number[]; //coordinates in lat, lon
 	lat: number; //current latitude position of train
 	lon: number; //current longitude position of train

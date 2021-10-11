@@ -80,6 +80,7 @@ export interface trainDataRaw {
 export interface trainData {
     routeName: string;
     trainNum: number;
+    objectID: number;
     coordinates: number[];
     lat: number;
     lon: number;

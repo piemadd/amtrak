@@ -91,6 +91,7 @@ export const cleanTrainDataAPI = ((originalData: trainData[]) => {
 			lon: originalTrain.lon, //current longitude position of train
 			heading: originalTrain.heading, //heading of the train in N, NE, E, SE, S, etc.
 			velocity: originalTrain.velocity,
+			objectID: originalTrain.objectID,
 			lastValTS: new Date(originalTrain.lastValTS), //Date object which train was last updated
 			trainTimeZone: originalTrain.trainTimeZone, //the current time zone of the train
 			lastArr: new Date(originalTrain.lastArr), //Date object which train arrived at final destination, null if still uncompleted
@@ -281,6 +282,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			routeName: originalTrain.RouteName, //name of the route
 			trainNum: parseInt(originalTrain.TrainNum), //train number
 			coordinates: [originalTrain.coordinates[1], originalTrain.coordinates[0]], //coordinates in lat, lon
+			objectID: originalTrain.OBJECTID,
 			lat: originalTrain.coordinates[1], //current latitude position of train
 			lon: originalTrain.coordinates[0], //current longitude position of train
 			heading: originalTrain.Heading, //heading of the train in N, NE, E, SE, S, etc.

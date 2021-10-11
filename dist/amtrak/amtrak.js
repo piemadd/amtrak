@@ -24,11 +24,9 @@ exports.fetchTrain = (async (trainNum) => {
 exports.fetchAllTrains = (async () => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.piemadd.com/v1/trains`);
     let originalData = await dataRaw.data;
-    let finalTrains = {};
-    let trains = Object.keys(originalData);
-    for (let i = 0; i < trains.length; i++) {
-        finalTrains[trains[i]] = await (0, cleaning_1.cleanTrainDataAPI)(originalData[trains[i]]);
-    }
+    let finalTrains = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([trainNum, train]) => {
+        return [trainNum, await (0, cleaning_1.cleanStationDataAPI)(train)];
+    })));
     return finalTrains;
 });
 exports.fetchStation = (async (stationCode) => {
@@ -40,16 +38,9 @@ exports.fetchStation = (async (stationCode) => {
 exports.fetchAllStations = (async () => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.piemadd.com/v1/stations`);
     let originalData = await dataRaw.data;
-    let stations = Object.keys(originalData);
-    let finalStations = {};
-    let temppeepee = await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
-        console.log(station);
+    let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
         return [stationCode, await (0, cleaning_1.cleanStationDataAPI)(station)];
-    }));
-    console.log(temppeepee);
-    for (let i = 0; i < stations.length; i++) {
-        finalStations[stations[i]] = await (0, cleaning_1.cleanStationDataAPI)(originalData[stations[i]]);
-    }
+    })));
     return finalStations;
 });
 const fetchTrainData = async (i = 0) => {
