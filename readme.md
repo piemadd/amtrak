@@ -1,8 +1,8 @@
 # Amtrak
 
-![Amtrak.js Logo](images/logo.png)
+![Amtrak.js Logo](https://ph-files.imgix.net/b2985e58-a08d-4b73-9932-bf22ff95d0e3.png?w=300&h=300&e=.png)
 
-[![Amtrak.js - Unofficial Amtrak Library - The easiest way to track Amtrak Trains Programmatically! | Product Hunt](images/producthunt.svg)](https://www.producthunt.com/posts/amtrak-js-unofficial-amtrak-library?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-amtrak-js-unofficial-amtrak-library)
+[![Amtrak.js - Unofficial Amtrak Library - The easiest way to track Amtrak Trains Programmatically! | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=312322&theme=dark&e=.svg)](https://www.producthunt.com/posts/amtrak-js-unofficial-amtrak-library?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-amtrak-js-unofficial-amtrak-library)
 
 ## Disclaimer
 This library and it's creator have no relation to Amtrak. Amtrak and the Atmrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is not intended for use outside of [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html). 
