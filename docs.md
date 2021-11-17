@@ -66,7 +66,7 @@ interface trainData {
 ```
 
 ## Functions
-There are 5 functions in this library, with one pulling all of the data directly from Amtrak, and the other 4 interact with my proxy api (api.amtrak.piemadd.com) which serves the same data, but allows for individual stations to be fetched and when fetching all stations and trains, they are organized by train number/station code instead of being one single array. Unless stated otherwise, assume all of these are async.
+There are 5 functions in this library, with one pulling all of the data directly from Amtrak, and the other 4 interact with my proxy api (api.amtrak.cc) which serves the same data, but allows for individual stations to be fetched and when fetching all stations and trains, they are organized by train number/station code instead of being one single array. Unless stated otherwise, assume all of these are async.
 
 Also I am terrible at writing so these descriptions are pretty bad, but feel free to check out the `API` section below which might help you better understand some of these.
 
@@ -83,12 +83,12 @@ Also I am terrible at writing so these descriptions are pretty bad, but feel fre
 `tzConv(threeLetterTZ)` - Returns the lengthened timezone when given a three-letter timezone. For example, passing `EST` would return `America/New_York`. Is here because JS' `Date()` object is indecisive on which one it wants for each function.
 
 ## API
-The last four functions above are also available from an API enpoint, being https://api.amtrak.piemadd.com/v1, which can be used to get a feel for the system and also add Amtrak API support to other libraries. Everything is returned as JSON.
+The last four functions above are also available from an API enpoint, being https://api.amtrak.cc/v1, which can be used to get a feel for the system and also add Amtrak API support to other libraries. Everything is returned as JSON.
 
-[`/trains/{trainNum}`](https://api.amtrak.piemadd.com/v1/trains/{trainNum}) - same as `fetchTrain(trainNum)`
+[`/trains/{trainNum}`](https://api.amtrak.cc/v1/trains/{trainNum}) - same as `fetchTrain(trainNum)`
 
-[`/trains`](https://api.amtrak.piemadd.com/v1/trains) - same as `fetchAllTrains()`
+[`/trains`](https://api.amtrak.cc/v1/trains) - same as `fetchAllTrains()`
 
-[`/stations/{stationCode}`](https://api.amtrak.piemadd.com/v1/stations) - same as `fetchStation(stationCode)`
+[`/stations/{stationCode}`](https://api.amtrak.cc/v1/stations) - same as `fetchStation(stationCode)`
 
-[`/stations`](https://api.amtrak.piemadd.com/v1/trains/{stationCode}) - same as `fetchAllStations()`
+[`/stations`](https://api.amtrak.cc/v1/trains/{stationCode}) - same as `fetchAllStations()`

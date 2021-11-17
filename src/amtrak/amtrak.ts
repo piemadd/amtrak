@@ -14,7 +14,7 @@ export { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAP
 export { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
 
 export const fetchTrain = (async (trainNum: number) => {
-	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/trains/${trainNum.toString()}`);
+	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/trains/${trainNum.toString()}`);
 	let originalData: trainData[] = await dataRaw.data;
 
 	let finalTrains = await cleanTrainDataAPI(originalData);
@@ -23,7 +23,7 @@ export const fetchTrain = (async (trainNum: number) => {
 });
 
 export const fetchAllTrains = (async () => {
-	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/trains`);
+	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/trains`);
 	let originalData: trainData[] = await dataRaw.data;
 
 	let finalTrains = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([trainNum, train]) => {
@@ -35,7 +35,7 @@ export const fetchAllTrains = (async () => {
 });
 
 export const fetchStation = (async (stationCode: string) => {
-	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations/${stationCode}`);
+	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/stations/${stationCode}`);
 	let originalData: station[] = await dataRaw.data;
 
 	let finalStation = await cleanStationDataAPI(originalData);
@@ -44,7 +44,7 @@ export const fetchStation = (async (stationCode: string) => {
 });
 
 export const fetchAllStations = (async () => {
-	const dataRaw = await axios.get(`https://api.amtrak.piemadd.com/v1/stations`);
+	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/stations`);
 	let originalData = await dataRaw.data;
 
 	let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
