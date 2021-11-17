@@ -11,3 +11,4 @@ testing
 examples
 src
 package-lock.json
+.cache

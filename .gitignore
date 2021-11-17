@@ -2,3 +2,4 @@ testing/dist/*
 testing/node_modules/*
 testing/package-lock.json
 node_modules*
+.cache
