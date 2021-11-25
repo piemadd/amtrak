@@ -2,17 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = exports.tzConv = void 0;
 const isDstObserved = (() => {
-    let today = new Date();
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var daylight = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EDT`);
-    let diffInMilliSeconds = Math.abs(daylight.getTime() - today.getTime()) / 1000;
-    const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
-    if (hours == 3) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    let date = new Date();
+    let year = date.getFullYear();
+    let dst_start = new Date(year, 2, 14);
+    let dst_end = new Date(year, 10, 7);
+    dst_start.setDate(14 - dst_start.getDay());
+    dst_end.setDate(7 - dst_end.getDay());
+    return (date >= dst_start && date < dst_end);
 });
 exports.tzConv = ((threeLetter) => {
     let zones = {

@@ -1,18 +1,15 @@
 import { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
 
 const isDstObserved = (() => {
-	let today: Date = new Date();
-	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	var daylight = new Date(`${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} EDT`);
+	let date = new Date();
 
-	let diffInMilliSeconds = Math.abs(daylight.getTime() - today.getTime()) / 1000;
-	const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+    let year = date.getFullYear();
+    let dst_start = new Date(year, 2, 14);
+    let dst_end = new Date(year, 10, 7);
+    dst_start.setDate(14 - dst_start.getDay()); // adjust date to 2nd Sunday
+    dst_end.setDate(7 - dst_end.getDay()); // adjust date to the 1st Sunday
 
-	if (hours == 3) {
-		return true;
-	} else {
-		return false;
-	}
+    return (date >= dst_start && date < dst_end);
 })
 
 export const tzConv = ((threeLetter: string) => {
