@@ -18,21 +18,18 @@ Object.defineProperty(exports, "tzConv", { enumerable: true, get: function () { 
 exports.fetchTrain = (async (trainNum) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/trains/${trainNum.toString()}`);
     let originalData = await dataRaw.data;
-    let finalTrains = await (0, cleaning_1.cleanTrainDataAPI)(originalData);
-    return finalTrains;
+    return originalData;
 });
 exports.fetchAllTrains = (async () => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/trains`);
     let originalData = await dataRaw.data;
-    let finalTrains = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([trainNum, train]) => {
-        return [trainNum, await (0, cleaning_1.cleanStationDataAPI)(train)];
-    })));
-    return finalTrains;
+    return originalData;
 });
 exports.fetchStation = (async (stationCode) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/stations/${stationCode}`);
     let originalData = await dataRaw.data;
     let finalStation = await (0, cleaning_1.cleanStationDataAPI)(originalData);
+    console.log(finalStation);
     return finalStation;
 });
 exports.fetchAllStations = (async () => {

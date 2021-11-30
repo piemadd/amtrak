@@ -17,21 +17,14 @@ export const fetchTrain = (async (trainNum: number) => {
 	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/trains/${trainNum.toString()}`);
 	let originalData: trainData[] = await dataRaw.data;
 
-	let finalTrains = await cleanTrainDataAPI(originalData);
-
-	return finalTrains;
+	return originalData;
 });
 
 export const fetchAllTrains = (async () => {
 	const dataRaw = await axios.get(`https://api.amtrak.cc/v1/trains`);
 	let originalData: trainData[] = await dataRaw.data;
 
-	let finalTrains = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([trainNum, train]) => {
-		// @ts-ignore
-		return [trainNum, await cleanStationDataAPI(train)]
-	})));
-
-	return finalTrains;
+	return originalData;
 });
 
 export const fetchStation = (async (stationCode: string) => {
@@ -39,6 +32,8 @@ export const fetchStation = (async (stationCode: string) => {
 	let originalData: station[] = await dataRaw.data;
 
 	let finalStation = await cleanStationDataAPI(originalData);
+
+	console.log(finalStation)
 
 	return finalStation;
 });
