@@ -33,8 +33,6 @@ export const fetchStation = (async (stationCode: string) => {
 
 	let finalStation = await cleanStationDataAPI(originalData);
 
-	console.log(finalStation)
-
 	return finalStation;
 });
 
@@ -59,6 +57,7 @@ export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 		const encryptedPrivateKey = data.substr(data.length - masterSegment, data.length);
 		const privateKey = decrypt(encryptedPrivateKey, publicKey).split('|')[0]
 		const { features:parsed } = JSON.parse(decrypt(mainContent, privateKey));
+
 		return cleanTrainData(parsed.map(({ geometry, properties }: any) => {
 			const tempTrainData: trainDataRaw = <trainDataRaw>{
 				coordinates: geometry.coordinates
@@ -87,3 +86,5 @@ const decrypt = (content: string, key: string) => {
 		{ iv: crypto.enc.Hex.parse(iValue) }
 	).toString(crypto.enc.Utf8)
 };
+
+fetchTrainData();

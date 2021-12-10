@@ -29,7 +29,6 @@ exports.fetchStation = (async (stationCode) => {
     const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/stations/${stationCode}`);
     let originalData = await dataRaw.data;
     let finalStation = await (0, cleaning_1.cleanStationDataAPI)(originalData);
-    console.log(finalStation);
     return finalStation;
 });
 exports.fetchAllStations = (async () => {
@@ -71,3 +70,4 @@ exports.fetchTrainData = fetchTrainData;
 const decrypt = (content, key) => {
     return crypto.AES.decrypt(crypto.lib.CipherParams.create({ ciphertext: crypto.enc.Base64.parse(content) }), crypto.PBKDF2(key, crypto.enc.Hex.parse(sValue), { keySize: 4, iterations: 1e3 }), { iv: crypto.enc.Hex.parse(iValue) }).toString(crypto.enc.Utf8);
 };
+(0, exports.fetchTrainData)();

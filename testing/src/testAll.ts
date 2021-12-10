@@ -7,6 +7,10 @@ fetchTrainData().then((trainData) => {
 	}
 })
 
+fetchTrainData(1).then((trainData) => {
+	console.log(trainData[0])
+})
+
 fetchAllStations().then((stuff) => {
 	console.log("done lol")
 })

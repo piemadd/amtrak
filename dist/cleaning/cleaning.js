@@ -253,7 +253,7 @@ exports.cleanTrainData = ((originalData) => {
         }
         else {
             let lastArrTime;
-            switch (Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ') + 1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.updated_at.substring(originalTrain.LastValTS.indexOf(' ') + 1, originalTrain.LastValTS.indexOf(':'))))) {
+            switch (Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ') + 1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.LastValTS.substring(originalTrain.LastValTS.indexOf(' ') + 1, originalTrain.LastValTS.indexOf(':'))))) {
                 case 0: {
                     trainTimeZone = `E${middleTimeLetter}T`;
                     break;

@@ -243,7 +243,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 
 		} else {
 			let lastArrTime: null;
-			switch(Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ')+1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.updated_at.substring(originalTrain.LastValTS.indexOf(' ')+1, originalTrain.LastValTS.indexOf(':'))))) { 
+			switch(Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ')+1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.LastValTS.substring(originalTrain.LastValTS.indexOf(' ')+1, originalTrain.LastValTS.indexOf(':'))))) { 
 				case 0: { //eastern
 					trainTimeZone = `E${middleTimeLetter}T`;
 					break; 
@@ -274,7 +274,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 				}
 			}
 		}
-
+		
 		let resultingTrain: trainData = {
 			routeName: originalTrain.RouteName, //name of the route
 			trainNum: parseInt(originalTrain.TrainNum), //train number
