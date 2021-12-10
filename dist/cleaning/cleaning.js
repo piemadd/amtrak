@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = exports.tzConv = void 0;
+exports.cleanTrainData = exports.cleanStationData = exports.cleanStationDataAPIMin = exports.cleanTrainDataAPI = exports.cleanStationDataAPI = exports.tzConv = exports.tzExtend = void 0;
 const isDstObserved = (() => {
     let date = new Date();
     let year = date.getFullYear();
@@ -9,6 +9,15 @@ const isDstObserved = (() => {
     dst_start.setDate(14 - dst_start.getDay());
     dst_end.setDate(7 - dst_end.getDay());
     return (date >= dst_start && date < dst_end);
+});
+exports.tzExtend = ((singleLetter) => {
+    let zones = {
+        'E': "EST5EDT",
+        'C': "CST6CDT",
+        'M': "MST7MDT",
+        'P': "PST8PDT"
+    };
+    return zones[singleLetter];
 });
 exports.tzConv = ((threeLetter) => {
     let zones = {
@@ -169,14 +178,7 @@ exports.cleanStationDataAPIMin = ((originalData) => {
 exports.cleanStationData = ((originalData, originalTrainNum) => {
     let resultingData = [];
     originalData.forEach((originalStation) => {
-        let middleTimeLetter;
-        if (isDstObserved()) {
-            middleTimeLetter = "D";
-        }
-        else {
-            middleTimeLetter = "S";
-        }
-        let stationTimeZone = `${originalStation.tz}${middleTimeLetter}T`;
+        let stationTimeZone = (0, exports.tzExtend)(originalStation.tz);
         let resultingStation = {
             trainNum: originalTrainNum,
             code: originalStation.code,
@@ -204,14 +206,7 @@ exports.cleanTrainData = ((originalData) => {
     originalData.forEach((originalTrain) => {
         let lastArrTime;
         let today = new Date();
-        let middleTimeLetter;
         let listOfAliases = [];
-        if (isDstObserved()) {
-            middleTimeLetter = "D";
-        }
-        else {
-            middleTimeLetter = "S";
-        }
         let trainTimeZone;
         if (originalTrain.Aliases != null) {
             originalTrain.Aliases.split(',').forEach((alias) => {
@@ -221,31 +216,31 @@ exports.cleanTrainData = ((originalData) => {
         if (originalTrain.TrainState == "Completed" && originalTrain.ViewStn1 != null && originalTrain.ViewStn2 != null) {
             switch (Math.abs(parseInt(originalTrain.ViewStn1.substring(originalTrain.ViewStn1.indexOf(' ') + 1, originalTrain.ViewStn1.indexOf(':'))) - parseInt(originalTrain.ViewStn2.substring(originalTrain.ViewStn2.indexOf(' ') + 1, originalTrain.ViewStn2.indexOf(':'))))) {
                 case 0: {
-                    trainTimeZone = `E${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('E');
                     break;
                 }
                 case 1: {
-                    trainTimeZone = `C${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('C');
                     break;
                 }
                 case 2: {
-                    trainTimeZone = `M${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('M');
                     break;
                 }
                 case 3: {
-                    trainTimeZone = `P${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('P');
                     break;
                 }
                 case 9: {
-                    trainTimeZone = `P${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('P');
                     break;
                 }
                 case 10: {
-                    trainTimeZone = `M${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('M');
                     break;
                 }
                 case 11: {
-                    trainTimeZone = `C${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('C');
                     break;
                 }
             }
@@ -255,31 +250,31 @@ exports.cleanTrainData = ((originalData) => {
             let lastArrTime;
             switch (Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ') + 1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.LastValTS.substring(originalTrain.LastValTS.indexOf(' ') + 1, originalTrain.LastValTS.indexOf(':'))))) {
                 case 0: {
-                    trainTimeZone = `E${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('E');
                     break;
                 }
                 case 1: {
-                    trainTimeZone = `C${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('C');
                     break;
                 }
                 case 2: {
-                    trainTimeZone = `M${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('M');
                     break;
                 }
                 case 3: {
-                    trainTimeZone = `P${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('P');
                     break;
                 }
                 case 9: {
-                    trainTimeZone = `P${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('P');
                     break;
                 }
                 case 10: {
-                    trainTimeZone = `M${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('M');
                     break;
                 }
                 case 11: {
-                    trainTimeZone = `C${middleTimeLetter}T`;
+                    trainTimeZone = (0, exports.tzExtend)('C');
                     break;
                 }
             }
@@ -302,10 +297,10 @@ exports.cleanTrainData = ((originalData) => {
             eventCode: originalTrain.EventCode,
             destCode: originalTrain.DestCode,
             origCode: originalTrain.OrigCode,
-            originTZ: `${originalTrain.OriginTZ}${middleTimeLetter}T`,
-            origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${originalTrain.OriginTZ}${middleTimeLetter}T`)),
+            originTZ: (0, exports.tzExtend)(originalTrain.OriginTZ),
+            origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${(0, exports.tzExtend)(originalTrain.OriginTZ)}`)),
             aliases: listOfAliases,
-            updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} E${middleTimeLetter}T`)),
+            updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} ${(0, exports.tzExtend)(originalTrain.OriginTZ)}`)),
             stations: (0, exports.cleanStationData)(originalTrain.Stations, parseInt(originalTrain.TrainNum))
         };
         resultingData.push(resultingTrain);
