@@ -22,6 +22,7 @@ export const tzExtend = ((singleLetter: string) => {
 
 	// @ts-ignore
 	return zones[singleLetter];
+
 })
 
 export const tzConv = ((threeLetter: string) => {
@@ -160,7 +161,13 @@ export const cleanStationData = ((originalData: stationRaw[], originalTrainNum: 
 	let resultingData: station[] = [];
 
 	originalData.forEach((originalStation: stationRaw) => {
-		let stationTimeZone: string = tzExtend(originalStation.tz);
+		let middleTimeLetter: string;
+		if (isDstObserved()) { 
+			middleTimeLetter = "D";
+		} else {
+			middleTimeLetter = "S";
+		}
+		let stationTimeZone: string = `${originalStation.tz}${middleTimeLetter}T`
 
 		let resultingStation: station = {
 			trainNum: originalTrainNum, //number of parent train
@@ -194,7 +201,14 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 	originalData.forEach((originalTrain: trainDataRaw) => {
 		let lastArrTime: Date;
 		let today: Date = new Date();
+		let middleTimeLetter: string;
 		let listOfAliases: number[] = [];
+		if (isDstObserved()) { 
+			middleTimeLetter = "D";
+		} else {
+			middleTimeLetter = "S";
+		}
+
 		let trainTimeZone: string;
 		
 		if (originalTrain.Aliases != null) {
@@ -208,31 +222,31 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 
 			switch(Math.abs(parseInt(originalTrain.ViewStn1.substring(originalTrain.ViewStn1.indexOf(' ')+1, originalTrain.ViewStn1.indexOf(':'))) - parseInt(originalTrain.ViewStn2.substring(originalTrain.ViewStn2.indexOf(' ')+1, originalTrain.ViewStn2.indexOf(':'))))) { 
 				case 0: { //eastern
-					trainTimeZone = tzExtend('E');
+					trainTimeZone = `E${middleTimeLetter}T`;
 					break; 
 				} 
 				case 1: { //central
-					trainTimeZone = tzExtend('C');
+					trainTimeZone = `C${middleTimeLetter}T`;
 					break; 
 				}
 				case 2: { //mountain
-					trainTimeZone = tzExtend('M');
+					trainTimeZone = `M${middleTimeLetter}T`;
 					break; 
 				}
 				case 3: { //pacific
-					trainTimeZone = tzExtend('P');
+					trainTimeZone = `P${middleTimeLetter}T`;
 					break; 
 				}
 				case 9: { //pacific
-					trainTimeZone = tzExtend('P');
+					trainTimeZone = `P${middleTimeLetter}T`;
 					break; 
 				}
 				case 10: { //mountain
-					trainTimeZone = tzExtend('M');
+					trainTimeZone = `M${middleTimeLetter}T`;
 					break; 
 				}
 				case 11: { //cetral
-					trainTimeZone = tzExtend('C');
+					trainTimeZone = `C${middleTimeLetter}T`;
 					break; 
 				}
 			}
@@ -244,31 +258,31 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			let lastArrTime: null;
 			switch(Math.abs(parseInt(originalTrain.updated_at.substring(originalTrain.updated_at.indexOf(' ')+1, originalTrain.updated_at.indexOf(':'))) - parseInt(originalTrain.LastValTS.substring(originalTrain.LastValTS.indexOf(' ')+1, originalTrain.LastValTS.indexOf(':'))))) { 
 				case 0: { //eastern
-					trainTimeZone = tzExtend('E');
+					trainTimeZone = `E${middleTimeLetter}T`;
 					break; 
 				} 
 				case 1: { //central
-					trainTimeZone = tzExtend('C');
+					trainTimeZone = `C${middleTimeLetter}T`;
 					break; 
 				}
 				case 2: { //mountain
-					trainTimeZone = tzExtend('M');
+					trainTimeZone = `M${middleTimeLetter}T`;
 					break; 
 				}
 				case 3: { //pacific
-					trainTimeZone = tzExtend('P');
+					trainTimeZone = `P${middleTimeLetter}T`;
 					break; 
 				}
 				case 9: { //pacific
-					trainTimeZone = tzExtend('P');
+					trainTimeZone = `P${middleTimeLetter}T`;
 					break; 
 				}
 				case 10: { //mountain
-					trainTimeZone = tzExtend('M');
+					trainTimeZone = `M${middleTimeLetter}T`;
 					break; 
 				}
 				case 11: { //cetral
-					trainTimeZone = tzExtend('C');
+					trainTimeZone = `C${middleTimeLetter}T`;
 					break; 
 				}
 			}
@@ -295,11 +309,11 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			eventCode: originalTrain.EventCode, //upcoming or current stop
 			destCode: originalTrain.DestCode, //final destination
 			origCode: originalTrain.OrigCode, //origin station
-			originTZ: tzExtend(originalTrain.OriginTZ), //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
-			origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${tzExtend(originalTrain.OriginTZ)}`)), //scheduled original departure for train
+			originTZ: `${originalTrain.OriginTZ}${middleTimeLetter}T`, //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
+			origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${originalTrain.OriginTZ}${middleTimeLetter}T`)), //scheduled original departure for train
 			// @ts-ignore
 			aliases: listOfAliases, //train numbers which also refer to this train
-			updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} ${tzExtend(originalTrain.OriginTZ)}`)), //the time this data was retrieved from the server
+			updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} E${middleTimeLetter}T`)), //the time this data was retrieved from the server
 			stations: cleanStationData(originalTrain.Stations, parseInt(originalTrain.TrainNum)) // array of station objects
 		}
 		// @ts-ignore
