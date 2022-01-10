@@ -16,23 +16,23 @@ Object.defineProperty(exports, "cleanTrainDataAPI", { enumerable: true, get: fun
 Object.defineProperty(exports, "cleanStationDataAPI", { enumerable: true, get: function () { return cleaning_2.cleanStationDataAPI; } });
 Object.defineProperty(exports, "tzConv", { enumerable: true, get: function () { return cleaning_2.tzConv; } });
 exports.fetchTrain = (async (trainNum) => {
-    const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/trains/${trainNum.toString()}`);
+    const dataRaw = await axios_1.default.get(`https://api.amtraker.com/v1/trains/${trainNum.toString()}`);
     let originalData = await dataRaw.data;
     return originalData;
 });
 exports.fetchAllTrains = (async () => {
-    const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/trains`);
+    const dataRaw = await axios_1.default.get(`https://api.amtraker.com/v1/trains`);
     let originalData = await dataRaw.data;
     return originalData;
 });
 exports.fetchStation = (async (stationCode) => {
-    const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/stations/${stationCode}`);
+    const dataRaw = await axios_1.default.get(`https://api.amtraker.com/v1/stations/${stationCode}`);
     let originalData = await dataRaw.data;
     let finalStation = await (0, cleaning_1.cleanStationDataAPI)(originalData);
     return finalStation;
 });
 exports.fetchAllStations = (async () => {
-    const dataRaw = await axios_1.default.get(`https://api.amtrak.cc/v1/stations`);
+    const dataRaw = await axios_1.default.get(`https://api.amtraker.com/v1/stations`);
     let originalData = await dataRaw.data;
     let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
         return [stationCode, await (0, cleaning_1.cleanStationDataAPI)(station)];
