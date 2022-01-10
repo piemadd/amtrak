@@ -10,6 +10,6 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"amtrak": "github:pieromqwerty/amtrak"
+		"amtrak": "github:piemadd/amtrak"
 	}
 }

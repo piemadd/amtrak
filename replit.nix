@@ -1,9 +1,6 @@
 { pkgs }: {
-    deps = [
-    pkgs.zig
-		pkgs.nodejs-16_x
-		pkgs.nodePackages.typescript
-		pkgs.nodePackages.npm
-		pkgs.yarn
-    ];
+	deps = with pkgs; [
+		nodejs-16_x
+		nodePackages.typescript-language-server
+	];
 }
