@@ -1,6 +1,6 @@
 {
 	"name": "amtrak",
-	"version": "2.8.4",
+	"version": "2.8.5",
 	"description": "A simple and easy way to parse data from Amtrak's train tracking API.",
 	"main": "dist/amtrak/amtrak.js",
 	"types": "dist/amtrak/amtrak.d.ts",
@@ -11,6 +11,7 @@
 	"author": "Piero Maddaleni <piero@piemadd.com> (https://www.piemadd.com/)",
 	"license": "AGPL",
 	"homepage": "https://github.com/pieromqwerty/amtrak",
+	"bin": "./cli/cli.js",
 	"keywords": [
 		"amtrak",
 		"amtrak tracking",
@@ -25,9 +26,12 @@
 	"dependencies": {
 		"@types/crypto-js": "^4.0.2",
 		"@types/node": "^16.7.13",
-		"axios": "^0.21.3",
+		"amtrak": "^2.8.4",
+		"ansi-colors": "^4.1.1",
+		"axios": "^0.25.0",
 		"crypto-js": "^4.1.1",
-		"isdst": "^1.0.0",
+		"enquirer": "^2.3.6",
+		"minimist": "^1.2.5",
 		"node-fetch": "^3.0.0",
 		"typescript": "^4.4.2"
 	}

@@ -76,7 +76,7 @@ exports.cleanStationDataAPI = ((originalData) => {
         let stationTemp = {
             trainNum: originalStation.trainNum,
             code: originalStation.code,
-            tz: originalStation.tz,
+            tz: (0, exports.tzConv)(originalStation.tz),
             bus: originalStation.bus,
             schArr: tempSchArr,
             schDep: tempSchDep,
@@ -311,7 +311,7 @@ exports.cleanTrainData = ((originalData) => {
             eventCode: originalTrain.EventCode,
             destCode: originalTrain.DestCode,
             origCode: originalTrain.OrigCode,
-            originTZ: `${originalTrain.OriginTZ}${middleTimeLetter}T`,
+            originTZ: (0, exports.tzConv)(originalTrain.OriginTZ),
             origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${originalTrain.OriginTZ}${middleTimeLetter}T`)),
             aliases: listOfAliases,
             updatedAt: dateOrNull(new Date(`${originalTrain.updated_at} E${middleTimeLetter}T`)),

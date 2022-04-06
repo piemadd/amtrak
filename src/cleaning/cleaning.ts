@@ -70,7 +70,7 @@ export const cleanStationDataAPI = ((originalData: station[]) => {
 		let stationTemp =  {
 			trainNum: originalStation.trainNum, //number of the train station is from
 			code: originalStation.code,
-			tz: originalStation.tz,
+			tz: tzConv(originalStation.tz),
 			bus: originalStation.bus,
 			schArr: tempSchArr, //scheduled arrival at station
 			schDep: tempSchDep, //scheduled departure from station
@@ -309,7 +309,7 @@ export const cleanTrainData = ((originalData: trainDataRaw[]): trainData[] => {
 			eventCode: originalTrain.EventCode, //upcoming or current stop
 			destCode: originalTrain.DestCode, //final destination
 			origCode: originalTrain.OrigCode, //origin station
-			originTZ: `${originalTrain.OriginTZ}${middleTimeLetter}T`, //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
+			originTZ: tzConv(originalTrain.OriginTZ), //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
 			origSchDep: dateOrNull(new Date(`${originalTrain.OrigSchDep} ${originalTrain.OriginTZ}${middleTimeLetter}T`)), //scheduled original departure for train
 			// @ts-ignore
 			aliases: listOfAliases, //train numbers which also refer to this train
