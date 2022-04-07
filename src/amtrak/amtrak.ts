@@ -14,78 +14,78 @@ export { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAP
 export { stationRaw, station, stationMin, trainDataRaw, trainData } from "../types/types";
 
 export const fetchTrain = (async (trainNum: number) => {
-	const dataRaw = await axios.get(`https://api.amtraker.com/v1/trains/${trainNum.toString()}`);
-	let originalData: trainData[] = await dataRaw.data;
+  const dataRaw = await axios.get(`https://api.amtraker.com/v1/trains/${trainNum.toString()}`);
+  let originalData: trainData[] = await dataRaw.data;
 
-	return originalData;
+  return originalData;
 });
 
 export const fetchAllTrains = (async () => {
-	const dataRaw = await axios.get(`https://api.amtraker.com/v1/trains`);
-	let originalData: trainData[] = await dataRaw.data;
+  const dataRaw = await axios.get(`https://api.amtraker.com/v1/trains`);
+  let originalData: { [key: string]: trainData[] } = await dataRaw.data;
 
-	return originalData;
+  return originalData;
 });
 
 export const fetchStation = (async (stationCode: string) => {
-	const dataRaw = await axios.get(`https://api.amtraker.com/v1/stations/${stationCode}`);
-	let originalData: station[] = await dataRaw.data;
+  const dataRaw = await axios.get(`https://api.amtraker.com/v1/stations/${stationCode}`);
+  let originalData: station[] = await dataRaw.data;
 
-	let finalStation = await cleanStationDataAPI(originalData);
+  let finalStation = await cleanStationDataAPI(originalData);
 
-	return finalStation;
+  return finalStation;
 });
 
 export const fetchAllStations = (async () => {
-	const dataRaw = await axios.get(`https://api.amtraker.com/v1/stations`);
-	let originalData = await dataRaw.data;
+  const dataRaw = await axios.get(`https://api.amtraker.com/v1/stations`);
+  let originalData = await dataRaw.data;
 
-	let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
-		// @ts-ignore
-		return [stationCode, await cleanStationDataAPI(station)]
-	})));
+  let finalStations = Object.fromEntries(await Promise.all(Object.entries(originalData).map(async ([stationCode, station]) => {
+    // @ts-ignore
+    return [stationCode, await cleanStationDataAPI(station)]
+  })));
 
-	return finalStations;
+  return finalStations;
 });
 
 //whoopsies forgot to increment i and this bug has existed forever
 export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
-	if (i > 3) throw Error('Issue');
-	try {
-		const { data } = await axios.get(dataUrl);
-		// Parse Data
-		const mainContent = data.substring(0, data.length - masterSegment);
-		const encryptedPrivateKey = data.substr(data.length - masterSegment, data.length);
-		const privateKey = decrypt(encryptedPrivateKey, publicKey).split('|')[0]
-		const { features:parsed } = JSON.parse(decrypt(mainContent, privateKey));
+  if (i > 3) throw Error('Issue');
+  try {
+    const { data } = await axios.get(dataUrl);
+    // Parse Data
+    const mainContent = data.substring(0, data.length - masterSegment);
+    const encryptedPrivateKey = data.substr(data.length - masterSegment, data.length);
+    const privateKey = decrypt(encryptedPrivateKey, publicKey).split('|')[0]
+    const { features: parsed } = JSON.parse(decrypt(mainContent, privateKey));
 
-		return cleanTrainData(parsed.map(({ geometry, properties }: any) => {
-			const tempTrainData: trainDataRaw = <trainDataRaw>{
-				coordinates: geometry.coordinates
-			};
-			const filteredKeys = Object.keys(properties).filter((key) => key.startsWith('Station') && properties[key] != null);
-			const sortedKeys = filteredKeys.sort((a: string, b: string): number => 
-				parseInt(a.replace('Station', '')) - parseInt(b.replace('Station', ''))
-			);
-			tempTrainData.Stations = sortedKeys.map((key) => JSON.parse(properties[key]));
-			Object.keys(properties).forEach((key) => {
-				//@ts-ignore
-				if (!key.startsWith('Station') && !tempTrainData.hasOwnProperty(key)) tempTrainData[key] = properties[key];
-			})
-			return tempTrainData;
-		}));
-	} catch (e) {
-		return await fetchTrainData(i + 1);
-	}
+    return cleanTrainData(parsed.map(({ geometry, properties }: any) => {
+      const tempTrainData: trainDataRaw = <trainDataRaw>{
+        coordinates: geometry.coordinates
+      };
+      const filteredKeys = Object.keys(properties).filter((key) => key.startsWith('Station') && properties[key] != null);
+      const sortedKeys = filteredKeys.sort((a: string, b: string): number =>
+        parseInt(a.replace('Station', '')) - parseInt(b.replace('Station', ''))
+      );
+      tempTrainData.Stations = sortedKeys.map((key) => JSON.parse(properties[key]));
+      Object.keys(properties).forEach((key) => {
+        //@ts-ignore
+        if (!key.startsWith('Station') && !tempTrainData.hasOwnProperty(key)) tempTrainData[key] = properties[key];
+      })
+      return tempTrainData;
+    }));
+  } catch (e) {
+    return await fetchTrainData(i + 1);
+  }
 }
 
 // Decrypt with crypto
 const decrypt = (content: string, key: string) => {
-	return crypto.AES.decrypt(
-		crypto.lib.CipherParams.create({ ciphertext: crypto.enc.Base64.parse(content) }),
-		crypto.PBKDF2(key, crypto.enc.Hex.parse(sValue), { keySize: 4, iterations: 1e3 }),
-		{ iv: crypto.enc.Hex.parse(iValue) }
-	).toString(crypto.enc.Utf8)
+  return crypto.AES.decrypt(
+    crypto.lib.CipherParams.create({ ciphertext: crypto.enc.Base64.parse(content) }),
+    crypto.PBKDF2(key, crypto.enc.Hex.parse(sValue), { keySize: 4, iterations: 1e3 }),
+    { iv: crypto.enc.Hex.parse(iValue) }
+  ).toString(crypto.enc.Utf8)
 };
 
 //fetchTrainData();
