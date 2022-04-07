@@ -63,7 +63,7 @@ const fetchTrainData = async (i = 0) => {
         }));
     }
     catch (e) {
-        return await (0, exports.fetchTrainData)();
+        return await (0, exports.fetchTrainData)(i + 1);
     }
 };
 exports.fetchTrainData = fetchTrainData;

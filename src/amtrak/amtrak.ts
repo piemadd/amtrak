@@ -48,6 +48,7 @@ export const fetchAllStations = (async () => {
 	return finalStations;
 });
 
+//whoopsies forgot to increment i and this bug has existed forever
 export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 	if (i > 3) throw Error('Issue');
 	try {
@@ -74,7 +75,7 @@ export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 			return tempTrainData;
 		}));
 	} catch (e) {
-		return await fetchTrainData();
+		return await fetchTrainData(i + 1);
 	}
 }
 
