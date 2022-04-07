@@ -88,4 +88,4 @@ const decrypt = (content: string, key: string) => {
 	).toString(crypto.enc.Utf8)
 };
 
-fetchTrainData();
+//fetchTrainData();
