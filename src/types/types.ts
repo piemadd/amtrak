@@ -75,7 +75,7 @@ export interface trainDataRaw { //DONT USE THIS FOR GOD'S SAKE
   OriginTZ: string;
   OrigSchDep: string; //origin tz
   Aliases: string;
-  upstringd_at: string;
+  updated_at: string;
   created_at: string;
   CMSID: string;
   ID: number;
@@ -105,8 +105,7 @@ export interface trainData {
   originTZ: string; //timezone of origin station (EST, EDT, CST, CDT, PST, or PDT)
   origSchDep: string; //scheduled original departure for train
   aliases: number[]; //train numbers which also refer to this train
-  upstringdAt: string; //the time this data was retrieved from the server
+  updatedAt: string; //the time this data was retrieved from the server
   eventName: string; //the name of the event
-
-  stations: station[]; //
+  stations: station[]; // the stations which the train is visiting/has visited
 };
