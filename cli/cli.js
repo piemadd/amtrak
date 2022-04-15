@@ -12,6 +12,17 @@ const argv = require('minimist')(process.argv.splice(2), opts = {
     }
 });
 
+const elongatedTimeZones = {
+    'PDT': 'America/Los_Angeles',
+    'PST': 'America/Los_Angeles',
+    'MDT': 'America/Denver',
+    'MST': 'America/Denver',
+    'CDT': 'America/Chicago',
+    'CST': 'America/Chicago',
+    'EDT': 'America/New_York',
+    'EST': 'America/New_York'
+}
+
 const argsList = Object.keys(argv);
 
 let trainNum = argv['num'];
@@ -104,8 +115,8 @@ const printTrain = ((train) => {
         'NW': 'NorthWest'
     }
 
-    timeOptions['timeZone'] = train.trainTimeZone
-    let timeUpdated = `${new Date(train.lastValTS).toLocaleString([], timeOptions)} ${c.yellow(train.trainTimeZone)}`
+    timeOptions['timeZone'] = elongatedTimeZones[train.trainTimeZone]
+    let timeUpdated = `${new Date(train.lastValTS).toLocaleString([], timeOptions)} ${c.yellow(timeOptions['timeZone'])}`
     
     console.log(`${c.cyan('Velocity:')} ${c.blue(`${train.velocity.toFixed(2)} MPH`)} ${c.yellow(directions[train.heading])}`)
     console.log(`${c.cyan('Position:')} ${c.blue(`[${c.yellow(`${train.coordinates[0]}, ${train.coordinates[1]}`)}]`)}`)
@@ -115,8 +126,8 @@ const printTrain = ((train) => {
     
     console.log(`${c.cyan('Next Stop:')} ${c.blue(`${stations[train.eventCode].stationName} [${c.yellow(train.eventCode)}]`)}`)
 
-    timeOptions['timeZone'] = stations[train.eventCode].tz
-    let estArr = `${new Date(stations[train.eventCode].estArr).toLocaleString([], timeOptions)} ${c.yellow(timeOptions.timeZone)}`
+    timeOptions['timeZone'] = elongatedTimeZones[stations[train.eventCode].tz]
+    let estArr = `${new Date(stations[train.eventCode].estArr).toLocaleString([], timeOptions)} ${c.yellow(timeOptions['timeZone'])}`
     
     console.log(`${c.cyan(`Est. Arrival:`)} ${c.blue(estArr)}`)
     

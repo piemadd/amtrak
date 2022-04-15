@@ -5,7 +5,7 @@
 [![Amtrak.js - Unofficial Amtrak Library - The easiest way to track Amtrak Trains Programmatically! | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=312322&theme=dark&e=.svg)](https://www.producthunt.com/posts/amtrak-js-unofficial-amtrak-library?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-amtrak-js-unofficial-amtrak-library)
 
 ## Disclaimer
-This library and it's creator have no relation to Amtrak. Amtrak and the Atmrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is not intended for use outside of [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html). 
+This library and its creator have no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is not intended for use outside of [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html). 
 
 ## Installation
 It'n an NPM package lol:

@@ -75,6 +75,7 @@ export const fetchTrainData = async (i: number = 0): Promise<trainData[]> => {
 			return tempTrainData;
 		}));
 	} catch (e) {
+        console.log(e)
 		return await fetchTrainData(i + 1);
 	}
 }
