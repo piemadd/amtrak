@@ -107,3 +107,5 @@ export interface trainData {
 	updatedAt: Date; //the time this data was retrieved from the server
 	stations: station[]; //
 };
+
+export type LatLng = { latitude: number; longitude: number };
