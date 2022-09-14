@@ -1,8 +1,9 @@
 import axios from "axios";
 import * as crypto from "crypto-js";
 import * as fs from 'fs';
-import { stationRaw, station, trainDataRaw, trainData } from "../types/types";
+import { stationRaw, station, trainDataRaw, trainData, LatLng } from "../types/types";
 import { cleanTrainData, cleanStationData, cleanTrainDataAPI, cleanStationDataAPI } from "../cleaning/cleaning";
+const haversine = require('haversine-distance')
 
 const dataUrl: string = 'https://maps.amtrak.com/services/MapDataService/trains/getTrainsData';
 const sValue: string = '9a3686ac';
@@ -23,8 +24,35 @@ export const fetchTrain = (async (trainNum: number) => {
 export const fetchAllTrains = (async () => {
 	const dataRaw = await axios.get(`https://api.amtraker.com/v1/trains`);
 	let originalData: trainData[] = await dataRaw.data;
-
 	return originalData;
+});
+
+export const fetchAllTrainsNear = (async (
+  targetLocation : LatLng,
+  kilometers: number
+) => {
+  // TODO: Replace this with whatever type replaces trainData[] in fetchAllTrains()
+  // See https://github.com/piemadd/amtrak/pull/5
+  type AllTrainsData = { [key: string]: trainData[] };
+  
+  const allTrains: AllTrainsData = Object.freeze((await fetchAllTrains()) as any);
+  const allTrainsNear: AllTrainsData = {};
+
+  for (const trainNum of Object.keys(allTrains)) {
+    const trainNumData = allTrains[trainNum].filter((x) => {
+      const trainLocation = {
+        latitude: x.coordinates[0],
+        longitude: x.coordinates[1],
+      };
+      return haversine(targetLocation, trainLocation) / 1000 <= kilometers;
+    });
+
+    if (trainNumData.length) {
+      allTrainsNear[trainNum] = trainNumData;
+    }
+  }
+
+  return allTrainsNear;
 });
 
 export const fetchStation = (async (stationCode: string) => {
