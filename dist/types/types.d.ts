@@ -101,3 +101,7 @@ export interface trainData {
     updatedAt: Date;
     stations: station[];
 }
+export declare type LatLng = {
+    latitude: number;
+    longitude: number;
+};
