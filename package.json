@@ -1,16 +1,16 @@
 {
 	"name": "amtrak",
-	"version": "2.8.8",
+	"version": "3.0.1",
 	"description": "A simple and easy way to parse data from Amtrak's train tracking API.",
-	"main": "dist/amtrak/amtrak.js",
-	"types": "dist/amtrak/amtrak.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
-		"start": "npx tsc -p ./src && node ./dist/amtrak/amtrak.js",
-		"test": "bash ./testing/runTests.sh"
+		"start": "npx ts-node ./src/index.ts",
+		"build": "rimraf ./build && tsc"
 	},
-	"author": "Piero Maddaleni <piero@piemadd.com> (https://www.piemadd.com/)",
+	"author": "Piero Maddaleni <piero@piemadd.com> (https://piemadd.com/)",
 	"license": "AGPL",
-	"homepage": "https://github.com/pieromqwerty/amtrak",
+	"homepage": "https://github.com/piemadd/amtrak",
 	"bin": "./cli/cli.js",
 	"keywords": [
 		"amtrak",
@@ -23,16 +23,14 @@
 		"railroad",
 		"railway"
 	],
+	"devDependencies": {
+		"@types/node": "^18.13.0",
+		"rimraf": "^4.1.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.9.5"
+	},
 	"dependencies": {
-		"@types/crypto-js": "^4.0.2",
-		"@types/node": "^16.7.13",
-		"amtrak": "^2.8.4",
-		"ansi-colors": "^4.1.1",
-		"axios": "^0.25.0",
-		"crypto-js": "^4.1.1",
-		"enquirer": "^2.3.6",
-		"minimist": "^1.2.5",
-		"node-fetch": "^3.0.0",
-		"typescript": "^4.4.2"
+		"node-fetch": "^3.3.0",
+		"nodemon": "^2.0.20"
 	}
 }

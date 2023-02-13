@@ -1,23 +1,31 @@
-# Amtrak
-
-![Amtrak.js Logo](https://ph-files.imgix.net/b2985e58-a08d-4b73-9932-bf22ff95d0e3.png?w=300&h=300&e=.png)
+# Amtrak.js
 
 [![Amtrak.js - Unofficial Amtrak Library - The easiest way to track Amtrak Trains Programmatically! | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=312322&theme=dark&e=.svg)](https://www.producthunt.com/posts/amtrak-js-unofficial-amtrak-library?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-amtrak-js-unofficial-amtrak-library)
 
 ## Disclaimer
-This library and its creator have no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is not intended for use outside of [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html). 
+This library and its creator have no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The API endpoint used is originally intended for with [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html).
+
+## Note
+Any version below 3.0.0 **WILL NO LONGER WORK** due to:
+- Amtrak blocking all requests from any Node.js REST client, or at least the ones that I have tried.
+- The deprecation of the Amtraker v1 and v2 APIs.
+
+While v3 code syntax is the same, the resulting types are different, please check the [docs](#docs) section for more information.
 
 ## Installation
-It'n an NPM package lol:
+Using NPM:
 
 `npm install amtrak`
 
-## Documentation
+Using Yarn:
 
-[View on Github](https://github.com/pieromqwerty/amtrak/blob/master/docs.md)
+`yarn add amtrak`
 
-## Demo Repl
-Here is a demo Repl you can either just simply run or even fork (all in your browser) to see what this library is capable of: https://replit.com/@piemadd/Amtrakjs-Example
+Using PNPM:
+
+`pnpm add amtrak`
+
+## Docs
 
 ## TS Examples
 As this library was written in TypeScript, it is naturally easy to use it:
