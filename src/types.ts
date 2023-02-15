@@ -6,7 +6,7 @@ export interface Train {
   lon: number;
   trainTimely: string;
   stations: Station[];
-  heading: Heading;
+  heading: string;
   eventCode: string;
   eventTZ: string[];
   eventName: string;
@@ -16,7 +16,7 @@ export interface Train {
   destCode: string;
   destTZ: string[];
   destName: string;
-  trainState: TrainState;
+  trainState: string;
   velocity: number;
   statusMsg: string;
   createdAt: string;
@@ -52,7 +52,7 @@ export interface Station {
   dep: string;
   arrCmnt: string;
   depCmnt: string;
-  status: StationStatus;
+  status: string;
 }
 
 export interface StationMeta {

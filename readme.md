@@ -177,30 +177,30 @@ list:
 
 ```ts
 interface Train {
-  routeName: string;
-  trainNum: number;
-  trainID: string;
-  lat: number;
-  lon: number;
-  trainTimely: string;
-  stations: Station[];
-  heading: Heading;
-  eventCode: string;
-  eventTZ: string[];
-  eventName: string;
-  origCode: string;
-  originTZ: string[];
-  origName: string;
-  destCode: string;
-  destTZ: string[];
-  destName: string;
-  trainState: TrainState;
-  velocity: number;
-  statusMsg: string;
-  createdAt: string;
-  updatedAt: string;
-  lastValTS: string;
-  objectID: number;
+  routeName: string; // Name of the train route
+  trainNum: number; // Train number
+  trainID: string; // Train ID
+  lat: number; // Latitude of the train
+  lon: number; // Longitude of the train
+  trainTimely: string; // On time/early/late status of the train in plain english
+  stations: Station[]; // List of stations the train has and will pass through
+  heading: string; // Direction the train is heading in the 8 cardinal directions
+  eventCode: string; // Upcoming/current station
+  eventTZ: string; // Timezone of the upcoming/current station
+  eventName: string; // Name of the upcoming/current station
+  origCode: string; // Origin station code
+  originTZ: string; // Timezone of the origin station
+  origName: string; // Name of the origin station
+  destCode: string; // Destination station code
+  destTZ: string; // Timezone of the destination station
+  destName: string; // Name of the destination station
+  trainState: string; // Either "Predeparture" or "Active"
+  velocity: number; // Speed of the train in MPH
+  statusMsg: string; // Status message associated with the train, if any
+  createdAt: string; // Timestamp of when the train data was stored in Amtrak's DB
+  updatedAt: string; // Timestamp of when the train data was last updated
+  lastValTS: string; // Timestamp of when the train data was last received
+  objectID: number; // ID of the train data in Amtrak's DB
 }
 ```
 
@@ -208,17 +208,17 @@ interface Train {
 
 ```ts
 interface Station {
-  name: string;
-  code: string;
-  tz: string;
-  bus: boolean;
-  schArr: string;
-  schDep: string;
-  arr: string;
-  dep: string;
-  arrCmnt: string;
-  depCmnt: string;
-  status: StationStatus;
+  name: string; // Name of the station in plain english
+  code: string; // Station code
+  tz: string; // Timezone of the station
+  bus: boolean; // Whether or not the station is a bus stop, always false
+  schArr: string; // Scheduled arrival time
+  schDep: string; // Scheduled departure time
+  arr: string; // Actual arrival time
+  dep: string; // Actual departure time
+  arrCmnt: string; // Arrival timeliness comment
+  depCmnt: string; // Departure timeliness comment
+  status: string; // One of "Enroute", "Station", "Departed", or "Unknown"
 }
 ```
 
@@ -226,17 +226,17 @@ interface Station {
 
 ```ts
 interface StationMeta {
-  name: string;
-  code: string;
-  tz: string;
-  lat: number;
-  lon: number;
-  address1: string;
-  address2: string;
-  city: string;
-  state: string;
-  zip: number;
-  trains: string[];
+  name: string; // Name of the station in plain english
+  code: string; // Station code
+  tz: string; // Timezone of the station
+  lat: number; // Latitude of the station
+  lon: number; // Longitude of the station
+  address1: string; // Address line 1 of the station
+  address2: string; // Address line 2 of the station, *usually* empty
+  city: string; // City of the station
+  state: string; // State of the station
+  zip: number; // Zip code of the station
+  trains: string[]; // List of train IDs that pass through the station
 }
 ```
 
@@ -260,9 +260,9 @@ interface StationResponse {
 
 ```ts
 interface StaleData {
-  avgLastUpdate: number;
-  activeTrains: number;
-  stale: boolean;
+  avgLastUpdate: number; // Average time in milliseconds since train data was last updated in Amtrak's database
+  activeTrains: number; // Number of trains that are currently active
+  stale: boolean; // Whether or not the data is stale
 }
 ```
 
@@ -274,13 +274,13 @@ library, where the associated function returns the same data as the endpoint,
 allowing you to use the library with your own HTTP client.
 
 - `https://api-v3.amtraker.com/v3/trains`
-  - Associted with [`fetchAllTrains()`](<#fetchAllTrains>)
+  - Associted with [`fetchAllTrains()`](#fetchAllTrains)
 - `https://api-v3.amtraker.com/v3/trains/:trainId`
   - Associted with [`fetchTrain(trainId: string)`](#fetchTraintrainId-string)
 - `https://api-v3.amtraker.com/v3/stations`
-  - Associted with [`fetchAllStations()`](<#fetchAllStations>)
+  - Associted with [`fetchAllStations()`](#fetchAllStations)
 - `https://api-v3.amtraker.com/v3/stations/:stationId`
   - Associted with
     [`fetchStation(stationId: string)`](#fetchStationstationId-string)
 - `https://api-v3.amtraker.com/v3/stale`
-  - Associted with [`fetchStaleStatus()`](<#fetchStaleStatus>)
+  - Associted with [`fetchStaleStatus()`](#fetchStaleStatus)
