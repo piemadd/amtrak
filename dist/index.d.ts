@@ -1,7 +1,8 @@
-declare const fetchTrain: (trainId: string) => Promise<import("axios").AxiosResponse<any, any>>;
-declare const fetchAllTrains: () => Promise<import("axios").AxiosResponse<any, any>>;
-declare const fetchStation: (stationId: string) => Promise<import("axios").AxiosResponse<any, any>>;
-declare const fetchAllStations: () => Promise<import("axios").AxiosResponse<any, any>>;
-declare const fetchStaleStatus: () => Promise<import("axios").AxiosResponse<any, any>>;
+import * as AmtrakerTypes from "./types";
+declare const fetchTrain: (trainId: string) => Promise<AmtrakerTypes.TrainResponse>;
+declare const fetchAllTrains: () => Promise<AmtrakerTypes.TrainResponse>;
+declare const fetchStation: (stationId: string) => Promise<AmtrakerTypes.StationResponse>;
+declare const fetchAllStations: () => Promise<AmtrakerTypes.StationResponse>;
+declare const fetchStaleStatus: () => Promise<AmtrakerTypes.StaleData>;
 export { fetchTrain, fetchAllTrains, fetchStation, fetchAllStations, fetchStaleStatus, };
 //# sourceMappingURL=index.d.ts.map
