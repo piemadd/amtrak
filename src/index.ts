@@ -2,23 +2,32 @@ import * as AmtrakerTypes from "./types";
 import axios from "axios";
 
 const fetchTrain = async (trainId: string) => {
-  return axios.get(`https://api-v3.amtraker.com/v3/trains/${trainId}`);
+  const res = await axios.get(
+    `https://api-v3.amtraker.com/v3/trains/${trainId}`
+  );
+  return res.data as AmtrakerTypes.TrainResponse;
 };
 
 const fetchAllTrains = async () => {
-  return axios.get("https://api-v3.amtraker.com/v3/trains");
+  const res = await axios.get("https://api-v3.amtraker.com/v3/trains");
+  return res.data as AmtrakerTypes.TrainResponse;
 };
 
 const fetchStation = async (stationId: string) => {
-  return axios.get(`https://api-v3.amtraker.com/v3/stations/${stationId}`);
+  const res = await axios.get(
+    `https://api-v3.amtraker.com/v3/stations/${stationId}`
+  );
+  return res.data as AmtrakerTypes.StationResponse;
 };
 
 const fetchAllStations = async () => {
-  return axios.get("https://api-v3.amtraker.com/v3/stations");
+  const res = await axios.get("https://api-v3.amtraker.com/v3/stations");
+  return res.data as AmtrakerTypes.StationResponse;
 };
 
 const fetchStaleStatus = async () => {
-  return axios.get("https://api-v3.amtraker.com/v3/stale");
+  const res = await axios.get("https://api-v3.amtraker.com/v3/stale");
+  return res.data as AmtrakerTypes.StaleData;
 };
 
 export {
