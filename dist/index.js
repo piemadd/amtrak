@@ -1,29 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = void 0;
-const node_fetch_1 = require("node-fetch");
+exports.fetchStaleStatus = exports.fetchAllStations = exports.fetchStation = exports.fetchAllTrains = exports.fetchTrain = void 0;
+const axios_1 = require("axios");
 const fetchTrain = async (trainId) => {
-    const res = await (0, node_fetch_1.default)(`https://api-v3.amtraker.com/v3/trains/${trainId}`);
-    const data = await res.json();
-    return data;
+    return axios_1.default.get(`https://api-v3.amtraker.com/v3/trains/${trainId}`);
 };
 exports.fetchTrain = fetchTrain;
 const fetchAllTrains = async () => {
-    const res = await (0, node_fetch_1.default)("https://api-v3.amtraker.com/v3/trains");
-    const data = await res.json();
-    return data;
+    return axios_1.default.get("https://api-v3.amtraker.com/v3/trains");
 };
 exports.fetchAllTrains = fetchAllTrains;
 const fetchStation = async (stationId) => {
-    const res = await (0, node_fetch_1.default)(`https://api-v3.amtraker.com/v3/stations/${stationId}`);
-    const data = await res.json();
-    return data;
+    return axios_1.default.get(`https://api-v3.amtraker.com/v3/stations/${stationId}`);
 };
 exports.fetchStation = fetchStation;
 const fetchAllStations = async () => {
-    const res = await (0, node_fetch_1.default)("https://api-v3.amtraker.com/v3/stations");
-    const data = await res.json();
-    return data;
+    return axios_1.default.get("https://api-v3.amtraker.com/v3/stations");
 };
 exports.fetchAllStations = fetchAllStations;
+const fetchStaleStatus = async () => {
+    return axios_1.default.get("https://api-v3.amtraker.com/v3/stale");
+};
+exports.fetchStaleStatus = fetchStaleStatus;
 //# sourceMappingURL=index.js.map

@@ -88,4 +88,4 @@ export interface StaleData {
   avgLastUpdate: number;
   activeTrains: number;
   stale: boolean;
-}
+};

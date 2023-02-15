@@ -1,30 +1,30 @@
-import { Train, StationMeta, TrainResponse, StationResponse } from "./types";
-import fetch from "node-fetch";
+import * as AmtrakerTypes from "./types";
+import axios from "axios";
 
 const fetchTrain = async (trainId: string) => {
-  const res = await fetch(`https://api-v3.amtraker.com/v3/trains/${trainId}`);
-  const data = await res.json();
-  return data as Train;
+  return axios.get(`https://api-v3.amtraker.com/v3/trains/${trainId}`);
 };
 
 const fetchAllTrains = async () => {
-  const res = await fetch("https://api-v3.amtraker.com/v3/trains");
-  const data = await res.json();
-  return data as TrainResponse;
+  return axios.get("https://api-v3.amtraker.com/v3/trains");
 };
 
 const fetchStation = async (stationId: string) => {
-  const res = await fetch(
-    `https://api-v3.amtraker.com/v3/stations/${stationId}`
-  );
-  const data = await res.json();
-  return data as StationMeta;
+  return axios.get(`https://api-v3.amtraker.com/v3/stations/${stationId}`);
 };
 
 const fetchAllStations = async () => {
-  const res = await fetch("https://api-v3.amtraker.com/v3/stations");
-  const data = await res.json();
-  return data as StationResponse;
+  return axios.get("https://api-v3.amtraker.com/v3/stations");
 };
 
-export { fetchTrain, fetchAllTrains, fetchStation, fetchAllStations };
+const fetchStaleStatus = async () => {
+  return axios.get("https://api-v3.amtraker.com/v3/stale");
+};
+
+export {
+  fetchTrain,
+  fetchAllTrains,
+  fetchStation,
+  fetchAllStations,
+  fetchStaleStatus,
+};

@@ -24,4 +24,5 @@ var StationStatus;
     StationStatus["Departed"] = "Departed";
     StationStatus["Unknown"] = "Unknown";
 })(StationStatus = exports.StationStatus || (exports.StationStatus = {}));
+;
 //# sourceMappingURL=types.js.map
