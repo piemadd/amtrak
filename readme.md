@@ -274,13 +274,13 @@ library, where the associated function returns the same data as the endpoint,
 allowing you to use the library with your own HTTP client.
 
 - `https://api-v3.amtraker.com/v3/trains`
-  - Associted with [`fetchAllTrains()`](<#fetchAllTrains()>)
+  - Associted with [`fetchAllTrains()`](<#fetchAllTrains>)
 - `https://api-v3.amtraker.com/v3/trains/:trainId`
   - Associted with [`fetchTrain(trainId: string)`](#fetchTraintrainId-string)
 - `https://api-v3.amtraker.com/v3/stations`
-  - Associted with [`fetchAllStations()`](<#fetchAllStations()>)
+  - Associted with [`fetchAllStations()`](<#fetchAllStations>)
 - `https://api-v3.amtraker.com/v3/stations/:stationId`
   - Associted with
     [`fetchStation(stationId: string)`](#fetchStationstationId-string)
 - `https://api-v3.amtraker.com/v3/stale`
-  - Associted with [`fetchStaleStatus()`](<#fetchStaleStatus()>)
+  - Associted with [`fetchStaleStatus()`](<#fetchStaleStatus>)
