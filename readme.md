@@ -16,7 +16,7 @@ Any version below 3.0.0 **WILL NO LONGER WORK** due to:
 - The deprecation of the Amtraker v1 and v2 APIs.
 
 While v3 code syntax is the same, the resulting types are different, please
-check the [docs](#docs) section for more information.
+check the [docs](#functions) section for more information.
 
 ## Installation
 
@@ -31,6 +31,14 @@ Using Yarn:
 Using PNPM:
 
 `pnpm add amtrak`
+
+## CLI Usage
+
+Not complete, check back later.
+
+## oEmbed
+
+The Amtraker oEmbed endpoint is [https://api.amtraker.com/v3/oembed](https://api.amtraker.com/v3/oembed), following the standard [oEmbed Spec](https://oembed.com/).
 
 ## Functions
 
