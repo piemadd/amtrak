@@ -186,7 +186,7 @@ list:
 ```ts
 interface Train {
   routeName: string; // Name of the train route
-  trainNum: number; // Train number
+  trainNum: string; // Train number
   trainID: string; // Train ID
   lat: number; // Latitude of the train
   lon: number; // Longitude of the train
@@ -209,6 +209,7 @@ interface Train {
   updatedAt: string; // Timestamp of when the train data was last updated
   lastValTS: string; // Timestamp of when the train data was last received
   objectID: number; // ID of the train data in Amtrak's DB
+  provider: string; // The provider of this train, either "Amtrak" or "Via"
 }
 ```
 
