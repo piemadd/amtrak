@@ -190,7 +190,7 @@ interface Train {
   trainID: string; // Train ID
   lat: number; // Latitude of the train
   lon: number; // Longitude of the train
-  trainTimely: string; // On time/early/late status of the train in plain english
+  trainTimely: string; // Deprecated
   stations: Station[]; // List of stations the train has and will pass through
   heading: string; // Direction the train is heading in the 8 cardinal directions
   eventCode: string; // Upcoming/current station
@@ -225,8 +225,8 @@ interface Station {
   schDep: string; // Scheduled departure time
   arr: string; // Actual arrival time
   dep: string; // Actual departure time
-  arrCmnt: string; // Arrival timeliness comment
-  depCmnt: string; // Departure timeliness comment
+  arrCmnt: string; // Deprecated
+  depCmnt: string; // Deprecated
   status: string; // One of "Enroute", "Station", "Departed", or "Unknown"
 }
 ```
