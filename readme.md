@@ -220,13 +220,14 @@ interface Station {
   name: string; // Name of the station in plain english
   code: string; // Station code
   tz: string; // Timezone of the station
-  bus: boolean; // Whether or not the station is a bus stop, always false
+  bus: boolean; // Whether or not the station is a bus stop
   schArr: string; // Scheduled arrival time
   schDep: string; // Scheduled departure time
   arr: string; // Actual arrival time
   dep: string; // Actual departure time
   arrCmnt: string; // Deprecated
   depCmnt: string; // Deprecated
+  platform: string; // Platform name/number, if available
   status: string; // One of "Enroute", "Station", "Departed", or "Unknown"
 }
 ```
@@ -240,6 +241,7 @@ interface StationMeta {
   tz: string; // Timezone of the station
   lat: number; // Latitude of the station
   lon: number; // Longitude of the station
+  hasAddress: boolean; // Whether or not the station has address data. Usually true for Amtrak, usually false for Via Rail.
   address1: string; // Address line 1 of the station
   address2: string; // Address line 2 of the station, *usually* empty
   city: string; // City of the station
