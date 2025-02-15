@@ -5,6 +5,7 @@ export interface Train {
   lat: number;
   lon: number;
   trainTimely: string;
+  iconColor: string;
   stations: Station[];
   heading: string;
   eventCode: string;
