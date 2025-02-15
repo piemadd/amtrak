@@ -187,6 +187,7 @@ list:
 interface Train {
   routeName: string; // Name of the train route
   trainNum: string; // Train number
+  trainNumRaw: string; // Train number, minus any prefix (ie v for via rail and b for brightline)
   trainID: string; // Train ID
   lat: number; // Latitude of the train
   lon: number; // Longitude of the train
