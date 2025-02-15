@@ -191,6 +191,7 @@ interface Train {
   lat: number; // Latitude of the train
   lon: number; // Longitude of the train
   trainTimely: string; // Deprecated
+  iconColor: string; // Calculated icon color for the frontend
   stations: Station[]; // List of stations the train has and will pass through
   heading: string; // Direction the train is heading in the 8 cardinal directions
   eventCode: string; // Upcoming/current station
