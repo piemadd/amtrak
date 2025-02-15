@@ -210,7 +210,8 @@ interface Train {
   updatedAt: string; // Timestamp of when the train data was last updated
   lastValTS: string; // Timestamp of when the train data was last received
   objectID: number; // ID of the train data in Amtrak's DB
-  provider: string; // The provider of this train, either "Amtrak" or "Via"
+  provider: string; // The provider of this train, either "Amtrak", "Via", or "Brightline"
+  providerShort: string; // A shortened version of `provider`, 4 or less characters, either "AMTK", "VIA", or "BLNE"
 }
 ```
 

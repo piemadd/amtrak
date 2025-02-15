@@ -24,6 +24,8 @@ export interface Train {
     updatedAt: string;
     lastValTS: string;
     objectID: number;
+    provider: string;
+    providerShort: string;
 }
 export declare enum Heading {
     N = "North",

@@ -24,6 +24,8 @@ export interface Train {
   updatedAt: string;
   lastValTS: string;
   objectID: number;
+  provider: string;
+  providerShort: string;
 }
 
 export enum Heading {
