@@ -27,7 +27,7 @@ export interface Train {
   objectID: number;
   provider: string;
   providerShort: string;
-  onlyOfTrainNUm: boolean;
+  onlyOfTrainNum: boolean;
 }
 
 export enum Heading {
