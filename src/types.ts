@@ -7,6 +7,7 @@ export interface Train {
   lon: number;
   trainTimely: string;
   iconColor: string;
+  textColor: string;
   stations: Station[];
   heading: string;
   eventCode: string;
@@ -63,6 +64,8 @@ export interface Station {
   arrCmnt: string;
   depCmnt: string;
   status: string;
+  stopIconColor: string;
+  platform: string;
 }
 
 export interface StationMeta {
