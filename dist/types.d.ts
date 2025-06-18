@@ -28,6 +28,10 @@ export interface Train {
     provider: string;
     providerShort: string;
     onlyOfTrainNum: boolean;
+    alerts: TrainAlert[];
+}
+export interface TrainAlert {
+    message: string;
 }
 export declare enum Heading {
     N = "North",

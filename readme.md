@@ -213,6 +213,15 @@ interface Train {
   objectID: number; // ID of the train data in Amtrak's DB
   provider: string; // The provider of this train, either "Amtrak", "Via", or "Brightline"
   providerShort: string; // A shortened version of `provider`, 4 or less characters, either "AMTK", "VIA", or "BLNE"
+  onlyOfTrainNum: boolean; // If this is the only train with its number (IE if there is only a single 3 active)
+  alerts: TrainAlert[]; // Array of alerts
+}
+```
+
+### Train Alert
+```ts
+export interface TrainAlert {
+  message: string;
 }
 ```
 
