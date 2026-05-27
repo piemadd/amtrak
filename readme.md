@@ -7,16 +7,9 @@ Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The
 API endpoint used is originally intended for with
 [Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html).
 
-## Note
+## Attribution
 
-Any version below 3.0.0 **WILL NO LONGER WORK** due to:
-
-- Amtrak blocking all requests from any Node.js REST client, or at least the
-  ones that I have tried.
-- The deprecation of the Amtraker v1 and v2 APIs.
-
-While v3 code syntax is the same, the resulting types are different, please
-check the [docs](#functions) section for more information.
+If you are using the Amtraker API for your project, we ask that you provide attribution of the source of your data directly on your website. Thank you.
 
 ## Installation
 
@@ -54,7 +47,7 @@ Amtrak.js has a pretty basic schema with 4 different functions:
 - Fetches all active Amtrak trains.
 - Returns `Promise<TrainResponse>` where each key is a train number and the
   value is a list of `Train` objects.
-- Associated endpoint: `https://api-v3.amtraker.com/v3/trains`
+- Associated endpoint: `https://api.amtraker.com/v3/trains`
 
 #### Example
 
@@ -85,7 +78,7 @@ fetchAllTrains().then((trains: TrainResponse) => {
   originated.
   - For example, a California Zephyr train (train #5) that originated on
     02/09/2023 would have an ID of `5-9`;
-- Associated endpoint: `https://api-v3.amtraker.com/v3/trains/:trainId`
+- Associated endpoint: `https://api.amtraker.com/v3/trains/:trainId`
 
 #### Example
 
@@ -109,7 +102,7 @@ fetchTrain("5-9").then((train: TrainResponse) => {
 - Fetches metadata for all Amtrak stations.
 - Returns `Promise<StationResponse>` where each key is a station ID and the
   value is a `StationMeta` object.
-- Associated endpoint: `https://api-v3.amtraker.com/v3/stations`
+- Associated endpoint: `https://api.amtraker.com/v3/stations`
 
 #### Example
 
@@ -134,7 +127,7 @@ fetchAllStations().then((stations: StationResponse) => {
 - Returns `Promise<StationResponse>` with a single key (the station ID) and the
   value is a `StationMeta` object.
 - If the station ID is not found, the promise will resolve with an empty object.
-- Associated endpoint: `https://api-v3.amtraker.com/v3/stations/:stationId`
+- Associated endpoint: `https://api.amtraker.com/v3/stations/:stationId`
 
 #### Example
 
@@ -157,7 +150,7 @@ fetchStation("CHI").then((station: StationResponse) => {
 
 - Fetches info on the state of the Amtraker API.
 - Returns `Promise<StaleStatusResponse>`.
-- Associated endpoint: `https://api-v3.amtraker.com/v3/stale`
+- Associated endpoint: `https://api.amtraker.com/v3/stale`
 
 #### Example
 
@@ -296,14 +289,14 @@ associated with an endpoint. Below is a list of all endpoints used by the
 library, where the associated function returns the same data as the endpoint,
 allowing you to use the library with your own HTTP client.
 
-- `https://api-v3.amtraker.com/v3/trains`
+- `https://api.amtraker.com/v3/trains`
   - Associted with [`fetchAllTrains()`](#fetchAllTrains)
-- `https://api-v3.amtraker.com/v3/trains/:trainId`
+- `https://api.amtraker.com/v3/trains/:trainId`
   - Associted with [`fetchTrain(trainId: string)`](#fetchTraintrainId-string)
-- `https://api-v3.amtraker.com/v3/stations`
+- `https://api.amtraker.com/v3/stations`
   - Associted with [`fetchAllStations()`](#fetchAllStations)
-- `https://api-v3.amtraker.com/v3/stations/:stationId`
+- `https://api.amtraker.com/v3/stations/:stationId`
   - Associted with
     [`fetchStation(stationId: string)`](#fetchStationstationId-string)
-- `https://api-v3.amtraker.com/v3/stale`
+- `https://api.amtraker.com/v3/stale`
   - Associted with [`fetchStaleStatus()`](#fetchStaleStatus)
