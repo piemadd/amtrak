@@ -1,15 +1,37 @@
-# Amtrak.js
+# Amtrak.js/Amtraker API
 
-## Disclaimer
+## Legal Disclaimer
 
-This library and its creator have no relation to Amtrak. Amtrak and the Amtrak
-Logo are trademarks of The National Railroad Passenger Corporation (NRPC). The
-API endpoint used is originally intended for with
-[Amtrak's Train Tracking map](https://www.amtrak.com/track-your-train.html).
+This library and its creator have no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC).
 
-## Attribution
+## Attribution/Licensing
 
-If you are using the Amtraker API for your project, we ask that you provide attribution of the source of your data directly on your website. Thank you.
+Amtraker API data is licensed under the Open Data Commons Attribution License (ODC-By) v1.0. The full license text is available [here](https://opendatacommons.org/licenses/by/1-0/) and a summary is available [here](https://opendatacommons.org/licenses/by/summary/). These terms were adopted on August 19th, 2026 at 3:00am America/Chicago. As API documentation is not frequently visited by some, any projects created before this date are given a grace period until October 31, 2026 to be in compliance with attribution requirements.
+
+### Attribution Guidance
+#### API/Database
+Within the distributed API docs or Database files, the main information file (ie README.md or README.txt) should include attribution to Amtraker in compliance with the ODC-By and linking to [https://api.amtraker/docs](https://api.amtraker/docs). If you have any questions regarding this licensing, please email me at amtraker@piemadd.com.
+
+#### Apps/Websites
+It is up to where you would like to provide attribution within your app/site, but the following from the ODC-By should be noted:
+> ...You must include a notice associated with the Produced Work reasonably calculated to make any Person that uses, views, accesses, interacts with, or is otherwise exposed to the Produced Work **aware that Content was obtained from the Database**, Derivative Database, or the Database as part of a Collective Database, and that it is available under this License.
+
+TLDR: it is *your* responsibility to make sure a user is aware the data is coming from Amtraker. It should be in a prominent position in your app/site, like the home screen or on a startup popup. Link to [https://amtraker.com](amtraker.com) within your attribution. Please note that hiding the attribution within your settings or FAQ is not within compliance of the ODC-By license.
+
+#### Interactive Maps
+Similar to OpenStreetMap, attribution should appear in the bottom right corner, though can be automatically collapsed if the screen is too small or after the user interacts with the map.
+
+#### Research Papers
+Please provide attribution within your sources, linking to [https://api.amtraker/docs](https://api.amtraker/docs). 
+
+#### News Articles
+Please refer to `Apps/Websites`. If your article is to be printed, simply stating the information/data came from "Amtraker" along with the "amtraker.com" being printed (ie: Per Amtraker (amtraker.com), train 48 was 4 hours late departing Albany.) will suffice.
+
+#### Other
+If where you're using Amtraker data isn't on this list, please try your best to use personal judgement. If you are unsure, please email me at amtraker@piemadd.com and I'll do my best to get back to you.
+
+## Historical Data
+Bulk historical location data, starting November 2nd, 2025, is available by request only via amtraker@piemadd.com.
 
 ## Installation
 

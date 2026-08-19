@@ -4,5 +4,5 @@ declare const fetchAllTrains: () => Promise<AmtrakerTypes.TrainResponse>;
 declare const fetchStation: (stationId: string) => Promise<AmtrakerTypes.StationResponse>;
 declare const fetchAllStations: () => Promise<AmtrakerTypes.StationResponse>;
 declare const fetchStaleStatus: () => Promise<AmtrakerTypes.StaleData>;
-export { fetchTrain, fetchAllTrains, fetchStation, fetchAllStations, fetchStaleStatus, };
+export { fetchTrain, fetchAllTrains, fetchStation, fetchAllStations, fetchStaleStatus };
 //# sourceMappingURL=index.d.ts.map
