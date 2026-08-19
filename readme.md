@@ -4,6 +4,10 @@
 
 This library and its creator have no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad Passenger Corporation (NRPC).
 
+## Headers
+
+When using the Amtraker API, please use a `User-Agent` that identifies your project. If no `User-Agent` is provided, your request will be blocked.
+
 ## Attribution/Licensing
 
 Amtraker API data is licensed under the Open Data Commons Attribution License (ODC-By) v1.0. The full license text is available [here](https://opendatacommons.org/licenses/by/1-0/) and a summary is available [here](https://opendatacommons.org/licenses/by/summary/). These terms were adopted on August 19th, 2026 at 3:00am America/Chicago. As API documentation is not frequently visited by some, any projects created before this date are given a grace period until October 31, 2026 to be in compliance with attribution requirements.
